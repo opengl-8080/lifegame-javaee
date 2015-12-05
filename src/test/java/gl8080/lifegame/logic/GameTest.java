@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
@@ -124,6 +126,18 @@ public class GameTest {
         
         // verify
         assertThat(game.getCells().containsKey(position), is(true));
+    }
+    
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+    
+    @Test
+    public void コンストラクタに_null_を渡した場合_例外がスローされること() throws Exception {
+        // verify
+        exception.expect(NullPointerException.class);
+        
+        // exercise
+        new Game(null);
     }
     
     public static GameDefinitionBuilder gameDefinition(int size) {

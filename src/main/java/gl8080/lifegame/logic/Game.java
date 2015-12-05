@@ -3,6 +3,7 @@ package gl8080.lifegame.logic;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -19,6 +20,7 @@ public class Game {
      * @throws NullPointerException ゲーム定義が {@code null} の場合
      */
     public Game(GameDefinition gameDef) {
+        Objects.requireNonNull(gameDef, "ゲーム定義が null です。");
         this.cells = new HashMap<>();
         
         this.initializeCells(gameDef);
