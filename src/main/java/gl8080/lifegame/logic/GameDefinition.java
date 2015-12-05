@@ -9,12 +9,16 @@ import gl8080.lifegame.logic.exception.IllegalParameterException;
 
 public class GameDefinition {
 
+    public static final int MAX_SIZE = 100;
+    
     private final int size;
     private Map<Position, CellDefinition> cells;
     
     public GameDefinition(int size) {
         if (size < 1) {
             throw new IllegalParameterException("サイズに０以外の値は指定できません size =" + size);
+        } else if (MAX_SIZE < size) {
+            throw new IllegalParameterException("サイズに " + MAX_SIZE + " 以上の値は指定できません size =" + size);
         }
         
         this.size = size;

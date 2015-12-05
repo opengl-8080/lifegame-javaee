@@ -46,6 +46,21 @@ public class GameDefinitionTest {
     }
     
     @Test
+    public void サイズに上限値を指定しても_例外はスローされないこと() throws Exception {
+        // exercise
+        new GameDefinition(GameDefinition.MAX_SIZE);
+    }
+    
+    @Test
+    public void サイズに上限値を越える値を指定したら_例外がスローされること() throws Exception {
+        // verify
+        exception.expect(IllegalParameterException.class);
+        
+        // exercise
+        new GameDefinition(GameDefinition.MAX_SIZE + 1);
+    }
+    
+    @Test
     public void インスタンスを生成すると_指定したサイズを二乗した数の死んだセル定義が作成される() {
         // verify
         Map<Position, CellDefinition> matrix = gameDef.getCellDefinitions();
