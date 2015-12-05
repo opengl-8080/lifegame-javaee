@@ -1,14 +1,19 @@
 package gl8080.lifegame.logic;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
+import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import gl8080.lifegame.logic.exception.IllegalParameterException;
 
+@RunWith(HierarchicalContextRunner.class)
 public class PositionTest {
     
     @Rule
@@ -122,5 +127,36 @@ public class PositionTest {
         
         // verify
         assertThat(actual, is("Position (5, 2)"));
+    }
+    
+    public class 周囲の位置を取得するメソッドのテスト {
+        
+        @Test
+        public void マイナスを指す位置は取得されないこと() throws Exception {
+            // setup
+            Position position = new Position(0, 0);
+            
+            // exercise
+            List<Position> neighbors = position.getNeighborPositions();
+            
+            // verify
+            assertThat(neighbors, containsInAnyOrder(new Position(0, 1), new Position(1, 0), new Position(1, 1)));
+        }
+        
+        @Test
+        public void 周囲８つの位置を取得できる() throws Exception {
+            // setup
+            Position position = new Position(5, 3);
+            
+            // exercise
+            List<Position> neighbors = position.getNeighborPositions();
+            
+            // verify
+            assertThat(neighbors, containsInAnyOrder(
+                    new Position(4, 2), new Position(4, 3), new Position(4, 4),
+                    new Position(5, 2),                     new Position(5, 4),
+                    new Position(6, 2), new Position(6, 3), new Position(6, 4)
+                    ));
+        }
     }
 }
