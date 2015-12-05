@@ -116,6 +116,16 @@ public class GameTest {
                               ));
     }
     
+    @Test
+    public void 取得したセル一覧を書き変えても_元のゲームが持つセル一覧には影響を与えない() {
+        // exercise
+        Position position = new Position(0, 0);
+        game.getCells().remove(position);
+        
+        // verify
+        assertThat(game.getCells().containsKey(position), is(true));
+    }
+    
     public static GameDefinitionBuilder gameDefinition(int size) {
         return new GameDefinitionBuilder(size);
     }
