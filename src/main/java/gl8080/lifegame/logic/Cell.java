@@ -118,7 +118,7 @@ public class Cell {
      * 
      * @return このセルに隣接する周辺のセル
      */
-    public List<Cell> getNeighbors() {
+    List<Cell> getNeighbors() {
         return new ArrayList<>(this.neighbors);
     }
 
