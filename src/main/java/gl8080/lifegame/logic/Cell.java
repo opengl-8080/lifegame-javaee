@@ -1,6 +1,6 @@
 package gl8080.lifegame.logic;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -32,8 +32,10 @@ public class Cell {
         
         if (4 <= liveCellCount) {
             this.nextStatus = false;
-        } else if (liveCellCount == 3 || liveCellCount == 2) {
+        } else if (liveCellCount == 3) {
             this.nextStatus = true;
+        } else if (liveCellCount == 2) {
+            this.nextStatus = this.alive;
         } else {
             this.nextStatus = false;
         }
@@ -54,9 +56,13 @@ public class Cell {
         return this.nextStatus;
     }
 
-    void setNeighbors(Cell... neighbors) {
+    void setNeighbors(List<Cell> neighbors) {
         Objects.requireNonNull(neighbors, "隣接するセルが null です。");
-        this.neighbors = Arrays.asList(neighbors);
+        this.neighbors = new ArrayList<>(neighbors);
+    }
+
+    public List<Cell> getNeighbors() {
+        return new ArrayList<>(this.neighbors);
     }
 
 }

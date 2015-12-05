@@ -3,164 +3,219 @@ package gl8080.lifegame.logic;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
+import de.bechte.junit.runners.context.HierarchicalContextRunner;
+
+@RunWith(HierarchicalContextRunner.class)
 public class CellTest {
 
-    @Test
-    public void 死んだセルを生成できる() {
-        // setup
-        Cell deadCell = Cell.dead();
+    public class 基本的なメソッドのテスト {
+        @Test
+        public void 死んだセルを生成できる() {
+            // setup
+            Cell deadCell = Cell.dead();
+            
+            // verify
+            assertThat(deadCell.isAlive(), is(false));
+        }
         
-        // verify
-        assertThat(deadCell.isAlive(), is(false));
-    }
-    
-    @Test
-    public void 生きたセルを生成できる() {
-        // setup
-        Cell liveCell = Cell.alive();
+        @Test
+        public void 生きたセルを生成できる() {
+            // setup
+            Cell liveCell = Cell.alive();
+            
+            // verify
+            assertThat(liveCell.isAlive(), is(true));
+        }
         
-        // verify
-        assertThat(liveCell.isAlive(), is(true));
+        @Rule
+        public ExpectedException exception = ExpectedException.none();
+        
+        @Test
+        public void 隣のセルにnullを渡した場合_例外がスローされること() throws Exception {
+            // setup
+            Cell liveCell = Cell.alive();
+            
+            // verify
+            exception.expect(NullPointerException.class);
+            
+            // exercise
+            liveCell.setNeighbors(null);
+        }
     }
     
-    private Cell liveCell;
-    
-    @Before
-    public void setup() {
-        liveCell = Cell.alive();
-    }
+    public class セルが死んでいる場合のルールのテスト {
 
-    @Test
-    public void 生きたセルが周りに４つ存在する場合_次の状態は_死_で予約される() throws Exception {
+        private Cell deadCell;
+        
+        @Before
+        public void setup() {
+            deadCell = Cell.dead();
+        }
+        
+        @Test
+        public void 生きたセルが周りに４つ存在する場合_次の状態は_死_で予約される() throws Exception {
+            assertRule(deadCell, alive(4).dead(4), false);
+        }
+        
+        @Test
+        public void 生きたセルが周りに３つ存在する場合_次の状態は_生_で予約される() throws Exception {
+            assertRule(deadCell, alive(3).dead(5), true);
+        }
+        
+        @Test
+        public void 生きたセルが周りに２つ存在する場合_次の状態は_死_で予約される() throws Exception {
+            assertRule(deadCell, alive(2).dead(6), false);
+        }
+        
+        @Test
+        public void 生きたセルが周りに１つ存在する場合_次の状態は_死_で予約される() throws Exception {
+            assertRule(deadCell, alive(1).dead(7), false);
+        }
+        
+        @Test
+        public void 生きたセルが周りに存在しない場合_次の状態は_死_で予約される() throws Exception {
+            assertRule(deadCell, Collections.emptyList(), false);
+        }
+    }
+    
+    public class セルが生きている場合のルールのテスト {
+
+        private Cell liveCell;
+        
+        @Before
+        public void setup() {
+            liveCell = Cell.alive();
+        }
+        
+        @Test
+        public void 生きたセルが周りに４つ存在する場合_次の状態は_死_で予約される() throws Exception {
+            assertRule(liveCell, alive(4).dead(4), false);
+        }
+        
+        @Test
+        public void 生きたセルが周りに３つ存在する場合_次の状態は_生_で予約される() throws Exception {
+            assertRule(liveCell, alive(3).dead(5), true);
+        }
+        
+        @Test
+        public void 生きたセルの周りに_生きたセルが周りに２つ存在する場合_次の状態は_生_で予約される() throws Exception {
+            assertRule(liveCell, alive(2).dead(6), true);
+        }
+        
+        @Test
+        public void 生きたセルが周りに１つ存在する場合_次の状態は_死_で予約される() throws Exception {
+            assertRule(liveCell, alive(1).dead(7), false);
+        }
+        
+        @Test
+        public void 生きたセルが周りに存在しない場合_次の状態は_死_で予約される() throws Exception {
+            assertRule(liveCell, Collections.emptyList(), false);
+        }
+    }
+    
+    public static void assertRule(Cell cell, List<Cell> neighbors, boolean toBeStatus) {
         // setup
-        liveCell.setNeighbors(alive(4).dead(4));
+        cell.setNeighbors(neighbors);
         
         // exercise
-        liveCell.reserveNextStatus();
+        cell.reserveNextStatus();
         
         // verify
-        assertThat(liveCell.toBeAlive(), is(false));
+        assertThat(cell.toBeAlive(), is(toBeStatus));
     }
     
-    @Test
-    public void 生きたセルが周りに３つ存在する場合_次の状態は_生_で予約される() throws Exception {
-        // setup
-        liveCell.setNeighbors(alive(3).dead(5));
+    public class 予約に関するテスト {
         
-        // exercise
-        liveCell.reserveNextStatus();
+        private Cell liveCell;
         
-        // verify
-        assertThat(liveCell.toBeAlive(), is(true));
-    }
-    
-    @Test
-    public void 生きたセルが周りに２つ存在する場合_次の状態は_生_で予約される() throws Exception {
-        // setup
-        liveCell.setNeighbors(alive(2).dead(6));
+        @Before
+        public void setup() {
+            liveCell = Cell.alive();
+            liveCell.setNeighbors(alive(1).dead(7));
+        }
         
-        // exercise
-        liveCell.reserveNextStatus();
+        public class 予約した場合 {
+
+            @Before
+            public void setup() {
+                liveCell.reserveNextStatus();
+            }
+            
+            @Test
+            public void まだセルの実際の状態は変わっていない() throws Exception {
+                // verify
+                assertThat(liveCell.isAlive(), is(true));
+            }
+            
+            public class 遷移を実行した後の場合 {
+                
+                @Rule
+                public ExpectedException exception = ExpectedException.none();
+                
+                @Before
+                public void setup() {
+                    liveCell.stepNextStatus();
+                }
+                
+                @Test
+                public void セルの状態が実際に変更される() throws Exception {
+                    // verify
+                    assertThat(liveCell.isAlive(), is(false));
+                }
+                
+                @Test
+                public void 予約せずに再度遷移を実行しようとすると_例外がスローされること() throws Exception {
+                    // verify
+                    exception.expect(IllegalStateException.class);
+                    
+                    // exercise
+                    liveCell.stepNextStatus();
+                }
+
+                @Test
+                public void 予約せずに再度次の状態を参照しようとしたら_例外がスローされること() throws Exception {
+                    // verify
+                    exception.expect(IllegalStateException.class);
+                    
+                    // exercise
+                    liveCell.toBeAlive();
+                }
+            }
+        }
         
-        // verify
-        assertThat(liveCell.toBeAlive(), is(true));
-    }
-    
-    @Test
-    public void 生きたセルが周りに１つ存在する場合_次の状態は_死_で予約される() throws Exception {
-        // setup
-        liveCell.setNeighbors(alive(1).dead(7));
-        
-        // exercise
-        liveCell.reserveNextStatus();
-        
-        // verify
-        assertThat(liveCell.toBeAlive(), is(false));
-    }
-    
-    @Test
-    public void 生きたセルが周りに存在しない場合_次の状態は_死_で予約される() throws Exception {
-        // exercise
-        liveCell.reserveNextStatus();
-        
-        // verify
-        assertThat(liveCell.toBeAlive(), is(false));
-    }
-    
-    @Test
-    public void 予約した段階では_まだセルの実際の状態は変わっていない() throws Exception {
-        // setup
-        liveCell.setNeighbors(alive(1).dead(7));
-        liveCell.reserveNextStatus();
-        
-        // verify
-        assertThat(liveCell.isAlive(), is(true));
-    }
-    
-    @Test
-    public void 予約した状態で_遷移を実行すると_セルの状態が実際に変更される() throws Exception {
-        // setup
-        liveCell.setNeighbors(alive(1).dead(7));
-        liveCell.reserveNextStatus();
-        
-        // exercise
-        liveCell.stepNextStatus();
-        
-        // verify
-        assertThat(liveCell.isAlive(), is(false));
-    }
-    
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-    
-    @Test
-    public void 予約していないのに遷移を実行しようとすると_例外がスローされること() throws Exception {
-        // verify
-        exception.expect(IllegalStateException.class);
-        
-        // exercise
-        liveCell.stepNextStatus();
-    }
-    
-    @Test
-    public void 一度遷移した後で_予約せずに再度遷移を実行しようとすると_例外がスローされること() throws Exception {
-        // setup
-        liveCell.reserveNextStatus();
-        liveCell.stepNextStatus();
-        
-        // verify
-        exception.expect(IllegalStateException.class);
-        
-        // exercise
-        liveCell.stepNextStatus();
-    }
-    
-    @Test
-    public void 予約していない状態で次の状態を参照しようとしたら_例外がスローされること() throws Exception {
-        // verify
-        exception.expect(IllegalStateException.class);
-        
-        // exercise
-        liveCell.toBeAlive();
-    }
-    
-    @Test
-    public void 隣のセルにnullを渡した場合_例外がスローされること() throws Exception {
-        // verify
-        exception.expect(NullPointerException.class);
-        
-        // exercise
-        liveCell.setNeighbors(nullObject());
-    }
-    
-    private static Cell[] nullObject() {
-        // 可変長引数に直接 null を渡すと警告がでるので、メソッドを経由させている
-        return null;
+        public class まだ予約していない場合 {
+
+            @Rule
+            public ExpectedException exception = ExpectedException.none();
+            
+            @Test
+            public void 遷移を実行しようとすると_例外がスローされること() throws Exception {
+                // verify
+                exception.expect(IllegalStateException.class);
+                
+                // exercise
+                liveCell.stepNextStatus();
+            }
+
+            @Test
+            public void 次の状態を参照しようとしたら_例外がスローされること() throws Exception {
+                // verify
+                exception.expect(IllegalStateException.class);
+                
+                // exercise
+                liveCell.toBeAlive();
+            }
+        }
     }
     
     private static CellBuilder alive(int n) {
@@ -177,17 +232,17 @@ public class CellTest {
             return this;
         }
         
-        private Cell[] dead(int n) {
+        private List<Cell> dead(int n) {
             this.deadCount = n;
             
             int length = this.aliveCount + this.deadCount;
-            Cell[] cells = new Cell[length];
+            List<Cell> cells = new ArrayList<>();
             
             for (int i=0; i<length; i++) {
                 if (i < this.aliveCount) {
-                    cells[i] = Cell.alive();
+                    cells.add(Cell.alive());
                 } else {
-                    cells[i] = Cell.dead();
+                    cells.add(Cell.dead());
                 }
             }
             
