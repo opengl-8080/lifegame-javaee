@@ -7,6 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import gl8080.lifegame.logic.exception.IllegalParameterException;
+
 public class PositionTest {
     
     @Rule
@@ -95,7 +97,7 @@ public class PositionTest {
     @Test
     public void 縦座標に負数を渡した場合_例外がスローされること() throws Exception {
         // setup
-        exception.expect(IllegalArgumentException.class);
+        exception.expect(IllegalParameterException.class);
         
         // exercise
         new Position(-1, 1);
@@ -104,7 +106,7 @@ public class PositionTest {
     @Test
     public void 横座標に負数を渡した場合_例外がスローされること() throws Exception {
         // setup
-        exception.expect(IllegalArgumentException.class);
+        exception.expect(IllegalParameterException.class);
         
         // exercise
         new Position(1, -1);

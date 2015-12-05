@@ -2,6 +2,8 @@ package gl8080.lifegame.logic;
 
 import java.util.Objects;
 
+import gl8080.lifegame.logic.exception.IllegalParameterException;
+
 public class Position {
     
     private final int vertical;
@@ -9,7 +11,7 @@ public class Position {
 
     public Position(int vertical, int horizontal) {
         if (vertical < 0 || horizontal < 0) {
-            throw new IllegalArgumentException("座標にマイナスは指定できません (" + vertical + ", " + horizontal + ")");
+            throw new IllegalParameterException("座標にマイナスは指定できません (" + vertical + ", " + horizontal + ")");
         }
         
         this.vertical = vertical;
