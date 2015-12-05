@@ -109,4 +109,16 @@ public class PositionTest {
         // exercise
         new Position(1, -1);
     }
+    
+    @Test
+    public void toStringすると_座標が文字列形式で返される() throws Exception {
+        // setup
+        Position position = new Position(5, 2);
+        
+        // exercise
+        String actual = position.toString();
+        
+        // verify
+        assertThat(actual, is("Position (5, 2)"));
+    }
 }

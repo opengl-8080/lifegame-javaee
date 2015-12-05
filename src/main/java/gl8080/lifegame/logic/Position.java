@@ -29,4 +29,9 @@ public class Position {
     public int hashCode() {
         return Objects.hash(this.vertical, this.horizontal);
     }
+    
+    @Override
+    public String toString() {
+        return Position.class.getSimpleName() + " (" + this.vertical + ", " + this.horizontal + ")";
+    }
 }
