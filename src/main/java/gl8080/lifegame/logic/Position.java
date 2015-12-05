@@ -6,11 +6,26 @@ import java.util.Objects;
 
 import gl8080.lifegame.logic.exception.IllegalParameterException;
 
+/**
+ * 位置を表すクラス。
+ * <p>
+ * このクラスは、縦横の座標によってオブジェクトを一意に識別します。<br>
+ * つまり、座標が同じ場所を指していれば、異なるインスタンスであっても {@link Position#equals(Object) equals()} メソッドは
+ * {@code true} を返します。
+ * <p>
+ * 座標値は、 {@code 0} オリジンです。
+ */
 public class Position {
     
     private final int vertical;
     private final int horizontal;
 
+    /**
+     * 新しい位置を生成する。
+     * @param vertical 縦座標
+     * @param horizontal 横座標
+     * @throws IllegalParameterException 座標にマイナスを指定した場合
+     */
     public Position(int vertical, int horizontal) {
         if (vertical < 0 || horizontal < 0) {
             throw new IllegalParameterException("座標にマイナスは指定できません (" + vertical + ", " + horizontal + ")");
@@ -20,6 +35,9 @@ public class Position {
         this.horizontal = horizontal;
     }
 
+    /**
+     * 指定した位置オブジェクトが、この位置と同じ座標を表すかを検証します。
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null) return false;
@@ -39,6 +57,13 @@ public class Position {
         return Position.class.getSimpleName() + " (" + this.vertical + ", " + this.horizontal + ")";
     }
 
+    /**
+     * この位置に隣接する、周囲８つの位置をリストで取得します。
+     * <p>
+     * 隣接する座標がマイナスになる場合、その座標を指す位置はリストから除外されます。
+     * 
+     * @return この位置に隣接する周囲８つの位置オブジェクト
+     */
     public List<Position> getNeighborPositions() {
         List<Position> neighbors = new ArrayList<>();
         
