@@ -22,8 +22,6 @@ import javax.persistence.Transient;
 public class Cell extends AbstractEntity {
     private static final long serialVersionUID = 1L;
     
-//    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-//    private Long id;
     private boolean alive;
     @Transient
     private Boolean nextStatus;

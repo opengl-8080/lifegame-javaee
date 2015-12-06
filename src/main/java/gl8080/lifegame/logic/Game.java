@@ -24,8 +24,6 @@ import org.eclipse.persistence.annotations.JoinFetchType;
 public class Game extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-//    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-//    private Long id;
     private int size;
     
     @OneToMany(cascade={PERSIST, MERGE, REMOVE})

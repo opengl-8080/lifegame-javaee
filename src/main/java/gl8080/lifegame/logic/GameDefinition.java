@@ -26,8 +26,6 @@ public class GameDefinition extends AbstractEntity {
     /**ゲームのサイズに指定できる最大値*/
     public static final int MAX_SIZE = 100;
     
-//    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-//    private Long id;
     private int size;
     
     @Embedded
