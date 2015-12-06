@@ -1,14 +1,44 @@
 package gl8080.lifegame.logic;
 
+import static javax.persistence.CascadeType.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 /**
  * セルを表すクラス。
  */
-public class Cell {
+@Entity
+@Table(name="CELL")
+public class Cell implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    private boolean alive;
+    @Transient
+    private Boolean nextStatus;
+    
+    @ManyToMany(cascade={PERSIST, MERGE, REMOVE})
+    @JoinTable(
+        name="CELL_RELATION",
+        joinColumns=@JoinColumn(name="MAIN_CELL_ID"),
+        inverseJoinColumns=@JoinColumn(name="NEIGHBOR_CELL_ID")
+    )
+    private List<Cell> neighbors = Collections.emptyList();
 
     /**
      * 死んだセルを生成します。
@@ -25,10 +55,6 @@ public class Cell {
     public static Cell alive() {
         return new Cell(true);
     }
-    
-    private boolean alive;
-    private Boolean nextStatus;
-    private List<Cell> neighbors = Collections.emptyList();
     
     private Cell(boolean alive) {
         this.alive = alive;
@@ -118,8 +144,15 @@ public class Cell {
      * 
      * @return このセルに隣接する周辺のセル
      */
-    List<Cell> getNeighbors() {
+    public List<Cell> getNeighbors() {
         return new ArrayList<>(this.neighbors);
     }
 
+    @Override
+    public String toString() {
+        return "Cell [id=" + id + ", alive=" + alive + ", nextStatus=" + nextStatus + ", neighbors=***]";
+    }
+    
+    @Deprecated
+    private Cell() {}
 }

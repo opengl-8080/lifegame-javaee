@@ -1,21 +1,45 @@
 package gl8080.lifegame.logic;
 
+import static java.util.stream.IntStream.*;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import static java.util.stream.IntStream.*;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
 
 import gl8080.lifegame.logic.exception.IllegalParameterException;
 
 /**
  * ゲーム定義を表すクラス。
  */
-public class GameDefinition {
+@Entity
+@Table(name="GAME_DEFINITION")
+public class GameDefinition implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**ゲームのサイズに指定できる最大値*/
     public static final int MAX_SIZE = 100;
     
-    private final int size;
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    private int size;
+    
+    @Embedded
+    @ElementCollection
+    @CollectionTable(
+        name="CELL_DEFINITION",
+        joinColumns=@JoinColumn(name="GAME_DEFINITION_ID")
+    )
     private Map<Position, CellDefinition> cells;
     
     /**
@@ -72,4 +96,22 @@ public class GameDefinition {
         
         this.cells.get(position).setStatus(status);
     }
+
+    /**
+     * このゲーム定義のサイズを取得します。
+     * 
+     * @return ゲーム定義のサイズ
+     */
+    public int getSize() {
+        return this.size;
+    }
+    
+    @Override
+    public String toString() {
+        return "GameDefinition [id=" + id + ", size=" + size + ", cells=" + cells + "]";
+    }
+    
+    @Deprecated @SuppressWarnings("unused")
+    private GameDefinition() {}
+
 }

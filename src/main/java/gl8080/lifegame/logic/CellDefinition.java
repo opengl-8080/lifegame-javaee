@@ -1,10 +1,13 @@
 package gl8080.lifegame.logic;
 
+import javax.persistence.Embeddable;
+
 /**
  * セル定義を表すクラス。
  */
+@Embeddable
 public class CellDefinition {
-
+    
     private boolean alive;
 
     /**
@@ -21,5 +24,10 @@ public class CellDefinition {
      */
     public boolean isAlive() {
         return this.alive;
+    }
+
+    @Override
+    public String toString() {
+        return "CellDefinition [alive=" + alive + "]";
     }
 }

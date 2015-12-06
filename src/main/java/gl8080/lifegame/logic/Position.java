@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 import gl8080.lifegame.logic.exception.IllegalParameterException;
 
 /**
@@ -15,10 +18,13 @@ import gl8080.lifegame.logic.exception.IllegalParameterException;
  * <p>
  * 座標値は、 {@code 0} オリジンです。
  */
+@Embeddable
 public class Position {
     
-    private final int vertical;
-    private final int horizontal;
+    @Column(name="VERTICAL_POSITION")
+    private int vertical;
+    @Column(name="HORIZONTAL_POSITION")
+    private int horizontal;
 
     /**
      * 新しい位置を生成する。
@@ -77,4 +83,7 @@ public class Position {
         
         return neighbors;
     }
+    
+    @Deprecated @SuppressWarnings("unused")
+    private Position() {}
 }

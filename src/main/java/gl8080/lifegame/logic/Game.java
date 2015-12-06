@@ -1,16 +1,40 @@
 package gl8080.lifegame.logic;
 
+import static javax.persistence.CascadeType.*;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.eclipse.persistence.annotations.JoinFetch;
+import org.eclipse.persistence.annotations.JoinFetchType;
+
 /**
  * ゲームを表すクラス。
  */
-public class Game {
+@Entity
+@Table(name="GAME")
+public class Game implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    private int size;
     
+    @OneToMany(cascade={PERSIST, MERGE, REMOVE})
+    @JoinColumn(name="GAME_ID")
+    @JoinFetch(JoinFetchType.INNER)
     private Map<Position, Cell> cells;
 
     /**
@@ -22,6 +46,7 @@ public class Game {
     public Game(GameDefinition gameDef) {
         Objects.requireNonNull(gameDef, "ゲーム定義が null です。");
         this.cells = new HashMap<>();
+        this.size = gameDef.getSize();
         
         this.initializeCells(gameDef);
         this.setupNeighborCells();
@@ -65,4 +90,20 @@ public class Game {
         this.cells.values().forEach(Cell::reserveNextStatus);
         this.cells.values().forEach(Cell::stepNextStatus);
     }
+    
+    /**
+     * このゲームのサイズを取得します。
+     * @return このゲームのサイズ
+     */
+    public int getSize() {
+        return this.size;
+    }
+
+    @Override
+    public String toString() {
+        return "Game [id=" + id + ", cells=" + cells + "]";
+    }
+    
+    @Deprecated @SuppressWarnings("unused")
+    private Game() {}
 }
