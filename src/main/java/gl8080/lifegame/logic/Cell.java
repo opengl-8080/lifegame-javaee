@@ -2,16 +2,12 @@ package gl8080.lifegame.logic;
 
 import static javax.persistence.CascadeType.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -23,11 +19,11 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="CELL")
-public class Cell implements Serializable {
+public class Cell extends AbstractEntity {
     private static final long serialVersionUID = 1L;
     
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+//    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+//    private Long id;
     private boolean alive;
     @Transient
     private Boolean nextStatus;
@@ -150,9 +146,12 @@ public class Cell implements Serializable {
 
     @Override
     public String toString() {
-        return "Cell [id=" + id + ", alive=" + alive + ", nextStatus=" + nextStatus + ", neighbors=***]";
+        return "Cell [id=" + this.getId() + ", alive=" + alive + ", nextStatus=" + nextStatus + ", neighbors=***]";
     }
-    
+
+    /**
+     * @deprecated このコンストラクタはフレームワークから使用されることを想定しています。
+     */
     @Deprecated
     private Cell() {}
 }

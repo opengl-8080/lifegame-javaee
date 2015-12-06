@@ -2,7 +2,6 @@ package gl8080.lifegame.logic;
 
 import static javax.persistence.CascadeType.*;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +9,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,11 +21,11 @@ import org.eclipse.persistence.annotations.JoinFetchType;
  */
 @Entity
 @Table(name="GAME")
-public class Game implements Serializable {
+public class Game extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+//    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+//    private Long id;
     private int size;
     
     @OneToMany(cascade={PERSIST, MERGE, REMOVE})
@@ -101,9 +97,12 @@ public class Game implements Serializable {
 
     @Override
     public String toString() {
-        return "Game [id=" + id + ", cells=" + cells + "]";
+        return "Game [id=" + this.getId() + ", size=" + size + ", cells=" + cells + "]";
     }
-    
+
+    /**
+     * @deprecated このコンストラクタはフレームワークから使用されることを想定しています。
+     */
     @Deprecated @SuppressWarnings("unused")
     private Game() {}
 }

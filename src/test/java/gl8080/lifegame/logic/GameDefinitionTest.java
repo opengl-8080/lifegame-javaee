@@ -115,5 +115,4 @@ public class GameDefinitionTest {
         // verify
         assertThat(gameDef.getCellDefinitions().containsKey(position), is(true));
     }
-
 }

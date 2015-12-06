@@ -2,7 +2,6 @@ package gl8080.lifegame.logic;
 
 import static java.util.stream.IntStream.*;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -11,9 +10,6 @@ import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
@@ -24,14 +20,14 @@ import gl8080.lifegame.logic.exception.IllegalParameterException;
  */
 @Entity
 @Table(name="GAME_DEFINITION")
-public class GameDefinition implements Serializable {
+public class GameDefinition extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     /**ゲームのサイズに指定できる最大値*/
     public static final int MAX_SIZE = 100;
     
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+//    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+//    private Long id;
     private int size;
     
     @Embedded
@@ -108,9 +104,12 @@ public class GameDefinition implements Serializable {
     
     @Override
     public String toString() {
-        return "GameDefinition [id=" + id + ", size=" + size + ", cells=" + cells + "]";
+        return "GameDefinition [id=" + this.getId() + ", size=" + size + ", cells=" + cells + "]";
     }
-    
+
+    /**
+     * @deprecated このコンストラクタはフレームワークから使用されることを想定しています。
+     */
     @Deprecated @SuppressWarnings("unused")
     private GameDefinition() {}
 
