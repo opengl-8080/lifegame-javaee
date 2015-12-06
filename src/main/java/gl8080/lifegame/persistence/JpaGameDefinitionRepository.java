@@ -1,5 +1,7 @@
 package gl8080.lifegame.persistence;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +21,7 @@ public class JpaGameDefinitionRepository implements GameDefinitionRepository {
     }
 
     @Override
-    public GameDefinition search(long id) {
-        return this.em.find(GameDefinition.class, id);
+    public Optional<GameDefinition> search(long id) {
+        return Optional.ofNullable(this.em.find(GameDefinition.class, id));
     }
 }

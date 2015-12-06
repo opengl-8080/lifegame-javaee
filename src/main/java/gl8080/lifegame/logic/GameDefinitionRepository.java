@@ -1,7 +1,9 @@
 package gl8080.lifegame.logic;
 
+import java.util.Optional;
+
 public interface GameDefinitionRepository {
     
     void register(GameDefinition gameDefinition);
-    GameDefinition search(long id);
+    Optional<GameDefinition> search(long id);
 }
