@@ -86,4 +86,12 @@ public class Position {
     
     @Deprecated @SuppressWarnings("unused")
     private Position() {}
+
+    public int getHorizontalPosition() {
+        return this.horizontal;
+    }
+
+    public int getVerticalPosition() {
+        return this.vertical;
+    }
 }

@@ -1,4 +1,4 @@
-package gl8080.lifegame.web;
+package gl8080.lifegame.web.resource;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
