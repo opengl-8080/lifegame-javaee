@@ -1,0 +1,4 @@
+var lg = {
+    model: {},
+    view: {}
+};
