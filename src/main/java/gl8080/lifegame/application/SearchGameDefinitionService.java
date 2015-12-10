@@ -6,6 +6,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+
 import gl8080.lifegame.logic.GameDefinition;
 import gl8080.lifegame.logic.GameDefinitionRepository;
 import gl8080.lifegame.logic.Position;
@@ -13,11 +15,13 @@ import gl8080.lifegame.web.resource.LifeGameDto;
 
 @Stateless
 public class SearchGameDefinitionService {
-    
+    @Inject
+    private Logger logger;
     @Inject
     private GameDefinitionRepository repository;
     
     public LifeGameDto search(long id) {
+        logger.info("search (id={})", id);
         GameDefinition gameDefinition = this.repository.search(id).orElseThrow(RuntimeException::new);
         
         LifeGameDto dto = new LifeGameDto();
