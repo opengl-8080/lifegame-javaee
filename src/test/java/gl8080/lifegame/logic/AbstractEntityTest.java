@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class AbstractPersistenceObjectTest {
+public class AbstractEntityTest {
     
     private static class ConcreteEntity extends AbstractEntity {
         @SuppressWarnings("deprecation")
@@ -22,8 +22,8 @@ public class AbstractPersistenceObjectTest {
     @Test
     public void IDが設定されていないオブジェクト同士は_別物と判定される() {
         // setup
-        PersistenceObject o1 = new ConcreteEntity();
-        PersistenceObject o2 = new ConcreteEntity();
+        AbstractEntity o1 = new ConcreteEntity();
+        AbstractEntity o2 = new ConcreteEntity();
         
         // verify
         assertThat(o1.equals(o2), is(false));
@@ -32,8 +32,8 @@ public class AbstractPersistenceObjectTest {
     @Test
     public void IDが設定されていないオブジェクト同士は_別々のハッシュ値を返す() {
         // setup
-        PersistenceObject o1 = new ConcreteEntity();
-        PersistenceObject o2 = new ConcreteEntity();
+        AbstractEntity o1 = new ConcreteEntity();
+        AbstractEntity o2 = new ConcreteEntity();
         
         // verify
         assertThat(o1.hashCode(), is(not(o2.hashCode())));
@@ -42,8 +42,8 @@ public class AbstractPersistenceObjectTest {
     @Test
     public void レシーバにだけIDが設定されている場合_別物と判定される() {
         // setup
-        PersistenceObject o1 = new ConcreteEntity(10L);
-        PersistenceObject o2 = new ConcreteEntity();
+        AbstractEntity o1 = new ConcreteEntity(10L);
+        AbstractEntity o2 = new ConcreteEntity();
         
         // verify
         assertThat(o1.equals(o2), is(false));
@@ -52,8 +52,8 @@ public class AbstractPersistenceObjectTest {
     @Test
     public void 同じIDが設定されている場合_同じものと判定される() {
         // setup
-        PersistenceObject o1 = new ConcreteEntity(20L);
-        PersistenceObject o2 = new ConcreteEntity(20L);
+        AbstractEntity o1 = new ConcreteEntity(20L);
+        AbstractEntity o2 = new ConcreteEntity(20L);
         
         // verify
         assertThat(o1.equals(o2), is(true));
@@ -62,8 +62,8 @@ public class AbstractPersistenceObjectTest {
     @Test
     public void 同じIDが設定されている場合_同じハッシュ値を返す() {
         // setup
-        PersistenceObject o1 = new ConcreteEntity(20L);
-        PersistenceObject o2 = new ConcreteEntity(20L);
+        AbstractEntity o1 = new ConcreteEntity(20L);
+        AbstractEntity o2 = new ConcreteEntity(20L);
         
         // verify
         assertThat(o1.hashCode(), is(o2.hashCode()));
@@ -72,7 +72,7 @@ public class AbstractPersistenceObjectTest {
     @Test
     public void nullを渡した場合_別物と判定される() {
         // setup
-        PersistenceObject o1 = new ConcreteEntity(20L);
+        AbstractEntity o1 = new ConcreteEntity(20L);
         
         // verify
         assertThat(o1.equals(null), is(false));
@@ -81,7 +81,7 @@ public class AbstractPersistenceObjectTest {
     @Test
     public void 別クラスのオブジェクトを渡した場合_別物と判定される() {
         // setup
-        PersistenceObject o1 = new ConcreteEntity(20L);
+        AbstractEntity o1 = new ConcreteEntity(20L);
         
         // verify
         assertThat(o1.equals(new Object()), is(false));
