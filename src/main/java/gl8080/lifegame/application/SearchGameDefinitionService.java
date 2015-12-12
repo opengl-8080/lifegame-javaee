@@ -21,7 +21,7 @@ public class SearchGameDefinitionService {
     private GameDefinitionRepository repository;
     
     public LifeGameDto search(long id) {
-        logger.debug("search game definition : {}", id);
+        logger.debug("search game definition (id={})", id);
         GameDefinition gameDefinition = this.repository.search(id).orElseThrow(RuntimeException::new);
         
         LifeGameDto dto = new LifeGameDto();

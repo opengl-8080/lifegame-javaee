@@ -17,7 +17,7 @@ public class RegisterGameDefinitionService {
     private GameDefinitionRepository gameDefinitionRepository;
     
     public GameDefinition register(int size) {
-        logger.info("register game definition : {}", size);
+        logger.info("register game definition (size={})", size);
         GameDefinition gameDefinition = new GameDefinition(size);
         this.gameDefinitionRepository.register(gameDefinition);
         return gameDefinition;

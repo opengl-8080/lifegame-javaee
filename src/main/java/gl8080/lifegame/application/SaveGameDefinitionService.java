@@ -17,7 +17,7 @@ public class SaveGameDefinitionService {
     private GameDefinitionRepository gameDefinitionRepository;
     
     public void save(LifeGameDto dto) {
-        logger.info("save game definition : {}", dto.getId());
+        logger.info("save game definition (id={})", dto.getId());
         logger.debug("dto = {}", dto);
         
         this.gameDefinitionRepository

@@ -1,6 +1,7 @@
 define(function(require) {
     var Backbone = require('Backbone');
     var LifeGameBoard = require('LifeGameBoard');
+    var Game = require('Game');
     
     var EditGameDefinitionForm = Backbone.View.extend({
         el: '#editGameDefinitionForm',
@@ -38,7 +39,10 @@ define(function(require) {
         },
         
         start: function() {
-            console.log('start');
+            var game = new Game();
+            
+            game.register(this.model.id)
+                .done(this.trigger.bind(this, 'start-game', game));
         },
         
         save: function() {

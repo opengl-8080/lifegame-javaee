@@ -9,7 +9,8 @@ define(function(require) {
     var LifeGameRouter = Backbone.Router.extend({
         routes: {
             '': 'registerGameDefinition',
-            'page/game/definition/:id': 'editGameDefinition'
+            'page/game/definition/:id': 'editGameDefinition',
+            'page/game/:id': 'runGame'
         },
         
         initialize: function() {
@@ -25,7 +26,7 @@ define(function(require) {
             
             var form = new RegisterGameDefinitionForm({model: gameDefinition});
             
-            form.on('registerGameDefinition', function(param) {
+            form.on('register-game-definition', function(param) {
                 self.navigate('page/game/definition/' + param.id, true);
             });
         },
@@ -33,6 +34,15 @@ define(function(require) {
         editGameDefinition: function(id) {
             var gameDefinition = new GameDefinition({id: id});
             var form = new EditGameDefinitionForm({model: gameDefinition});
+            var self = this;
+            
+            form.on('start-game', function(game) {
+                self.navigate('page/game/' + game.id, true);
+            });
+        },
+        
+        runGame: function(id) {
+            console.log('game id = ' + id);
         }
     });
     

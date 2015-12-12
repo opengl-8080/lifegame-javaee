@@ -16,7 +16,7 @@ public class RemoveGameDefinitionService {
     private GameDefinitionRepository gameDefinitionRepository;
     
     public void remove(long id) {
-        logger.info("remove game definition : {}", id);
+        logger.info("remove game definition (id={})", id);
         
         this.gameDefinitionRepository
             .search(id)
