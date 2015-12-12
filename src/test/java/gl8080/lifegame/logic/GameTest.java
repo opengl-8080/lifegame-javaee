@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import gl8080.lifegame.logic.definition.GameDefinition;
+import gl8080.lifegame.test.GameDefinitionBuilder;
 
 @RunWith(HierarchicalContextRunner.class)
 public class GameTest {
@@ -143,42 +144,5 @@ public class GameTest {
     
     public static GameDefinitionBuilder gameDefinition(int size) {
         return new GameDefinitionBuilder(size);
-    }
-    
-    public static class GameDefinitionBuilder {
-        
-        private GameDefinition gameDef;
-        private int horizontalIndex;
-        private int verticalIndex;
-        private int size;
-        
-        public GameDefinitionBuilder(int size) {
-            this.size = size;
-            this.gameDef = new GameDefinition(size);
-        }
-        
-        public GameDefinitionBuilder live() {
-            return this.cell(true);
-        }
-        
-        public GameDefinitionBuilder dead() {
-            return this.cell(false);
-        }
-        
-        private GameDefinitionBuilder cell(boolean alive) {
-            this.gameDef.setStatus(new Position(this.verticalIndex, this.horizontalIndex), alive);
-            this.horizontalIndex++;
-            
-            if (this.size <= this.horizontalIndex) {
-                this.horizontalIndex = 0;
-                this.verticalIndex++;
-            }
-            
-            return this;
-        }
-        
-        public GameDefinition build() {
-            return this.gameDef;
-        }
     }
 }
