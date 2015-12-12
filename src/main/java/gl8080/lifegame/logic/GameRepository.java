@@ -19,4 +19,10 @@ public interface GameRepository {
      * @return 検索結果
      */
     Optional<Game> search(long id);
+
+    /**
+     * 指定したゲームを削除する。
+     * @param game 削除するゲーム。
+     */
+    void remove(Game game);
 }

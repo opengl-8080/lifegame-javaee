@@ -16,10 +16,21 @@ define(function(require) {
         },
         
         initialize: function() {
-            this.on('route', function(route, param) {
-                $('.page').hide();
-                $('.' + route).fadeIn(200);
-            });
+            $(window).on("beforeunload", this.removeRunningGameIfExists.bind(this));
+            this.on('route', this.onMovePage.bind(this));
+        },
+        
+        onMovePage: function(route) {
+            this.removeRunningGameIfExists(route);
+            $('.page').hide();
+            $('.' + route).fadeIn(200);
+        },
+        
+        removeRunningGameIfExists: function(route) {
+            if (route !== 'runGame' && this.runGameForm) {
+                this.runGameForm.remove();
+                delete this.runGameForm;
+            }
         },
         
         registerGameDefinition: function() {
@@ -45,7 +56,7 @@ define(function(require) {
         
         runGame: function(id) {
             var game = new Game({id: id});
-            var form = new RunGameForm({model: game});
+            this.runGameForm = new RunGameForm({model: game});
         }
     });
     

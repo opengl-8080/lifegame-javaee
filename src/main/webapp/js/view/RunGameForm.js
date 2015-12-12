@@ -1,6 +1,7 @@
 define(function(require) {
     var Backbone = require('Backbone');
     var LifeGameBoard = require('LifeGameBoard');
+    var $ = require('jquery');
     var Game = require('Game');
     
     var RunGameForm = Backbone.View.extend({
@@ -42,6 +43,11 @@ define(function(require) {
         stop: function() {
             clearInterval(this.intervalId);
             delete this.intervalId;
+        },
+        
+        remove: function() {
+            this.stop();
+            this.model.destroy();
         }
     });
     

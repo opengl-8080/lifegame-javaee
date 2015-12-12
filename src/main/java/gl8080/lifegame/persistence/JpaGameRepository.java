@@ -24,4 +24,9 @@ public class JpaGameRepository implements GameRepository {
     public Optional<Game> search(long id) {
         return Optional.ofNullable(this.em.find(Game.class, id));
     }
+
+    @Override
+    public void remove(Game game) {
+        this.em.remove(game);
+    }
 }

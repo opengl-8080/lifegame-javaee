@@ -17,6 +17,7 @@ import javax.ws.rs.core.UriBuilder;
 
 import gl8080.lifegame.application.NextStepService;
 import gl8080.lifegame.application.RegisterGameService;
+import gl8080.lifegame.application.RemoveGameService;
 import gl8080.lifegame.application.SearchGameService;
 import gl8080.lifegame.logic.Game;
 import gl8080.lifegame.util.Maps;
@@ -31,6 +32,8 @@ public class GameResource {
     private SearchGameService searchService;
     @Inject
     private NextStepService nextService;
+    @Inject
+    private RemoveGameService removeService;
     
     @POST
     public Response register(@QueryParam("game-definition-id") long gameDefinitionId) {
@@ -65,6 +68,7 @@ public class GameResource {
     @DELETE
     @Path("/{id}")
     public Response remove(@PathParam("id") long id) {
-        return null;
+        this.removeService.remove(id);
+        return Response.ok().build();
     }
 }
