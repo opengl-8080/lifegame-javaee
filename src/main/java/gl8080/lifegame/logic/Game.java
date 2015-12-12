@@ -89,22 +89,6 @@ public class Game extends AbstractEntity implements LifeGame {
     public String toString() {
         return "Game [id=" + this.getId() + ", size=" + size + ", cells=" + cells + "]";
     }
-    
-    public String dump() {
-        StringBuilder sb = new StringBuilder();
-        
-        for (int i=0; i<this.size; i++) {
-            for (int j=0; j<this.size; j++) {
-                Position p = new Position(i, j);
-                Cell cell = this.cells.get(p);
-                
-                sb.append(cell.isAlive() ? "+" : "-");
-            }
-            sb.append("\n");
-        }
-        
-        return sb.toString();
-    }
 
     /**
      * @deprecated このコンストラクタはフレームワークから使用されることを想定しています。
