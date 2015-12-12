@@ -1,4 +1,4 @@
-package gl8080.lifegame.logic;
+package gl8080.lifegame.logic.definition;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;

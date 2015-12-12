@@ -1,4 +1,4 @@
-package gl8080.lifegame.logic;
+package gl8080.lifegame.logic.definition;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -12,6 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import gl8080.lifegame.logic.Position;
 import gl8080.lifegame.logic.definition.CellDefinition;
 import gl8080.lifegame.logic.definition.GameDefinition;
 import gl8080.lifegame.logic.exception.IllegalParameterException;
