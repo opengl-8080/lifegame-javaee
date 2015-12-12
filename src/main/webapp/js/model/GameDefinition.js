@@ -7,6 +7,8 @@ define(function(require) {
             size: 5
         },
         
+        urlRoot: urlRoot,
+        
         validate: function(attrs) {
             if (!attrs.size) {
                 return 'サイズを指定してください';
@@ -22,20 +24,15 @@ define(function(require) {
         },
         
         register: function() {
-            var self = this;
-            var url = urlRoot + '?size=' + self.get('size');
+            var url = urlRoot + '?size=' + this.get('size');
             
-            return self.save(null, {url: url});
+            return this.save(null, {url: url});
         },
         
-        search: function() {
-            var self = this;
-            var url = urlRoot + '/' + self.id;
+        update: function() {
+            var url = urlRoot + '/' + this.id;
             
-            return self.fetch({url: url})
-                        .done(function() {
-                            self.trigger('search');
-                        });
+            return this.sync('update', this, {url: url});
         }
     });
     

@@ -24,4 +24,9 @@ public class JpaGameDefinitionRepository implements GameDefinitionRepository {
     public Optional<GameDefinition> search(long id) {
         return Optional.ofNullable(this.em.find(GameDefinition.class, id));
     }
+
+    @Override
+    public void remove(GameDefinition gameDefinition) {
+        this.em.remove(gameDefinition);
+    }
 }

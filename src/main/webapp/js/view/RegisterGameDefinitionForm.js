@@ -11,8 +11,8 @@ define(function(require) {
         initialize: function() {
             var self = this;
             
-            self.$size = self.$('#gameDefinitionSize').val(self.model.get('size'));
-            self.$message = self.$('#registerGameDefinitionMessage');
+            self.$size = self.$('.size').val(self.model.get('size'));
+            self.$message = self.$('.message');
             
             self.model.on('invalid', function() {
                 self.$message.text(self.model.validationError);
@@ -20,6 +20,7 @@ define(function(require) {
         },
         
         register: function() {
+            console.log('register');
             var self = this;
             
             self.$message.text('');

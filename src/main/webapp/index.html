@@ -6,17 +6,21 @@
   </head>
   <body>
     <div id="registerGameDefinitionForm" class="page registerGameDefinition invisible">
-      <h1>新規登録</h1>
+      <h1>New Game</h1>
       <div>
-        <span id="registerGameDefinitionMessage"></span>
-        <label for="gameDefinitionSize">サイズ：</label>
-        <input type="number" id="gameDefinitionSize" min="1" max="100"/>
+        <span class="message"></span>
+        <label for="gameDefinitionSize">Size : </label>
+        <input type="number" id="gameDefinitionSize" class="size" min="1" max="100"/>
       </div>
-      <button id="registerGameDefinitionButton">登録</button>
+      <button id="registerGameDefinitionButton">Register</button>
     </div>
     
     <div id="editGameDefinitionForm" class="page editGameDefinition invisible">
-      <h1>ゲーム定義</h1>
+      <h1>Game Definition</h1>
+      <div class="board"></div>
+      <button class="startButton">Start</button>
+      <button class="saveButton">Save</button>
+      <button class="removeButton">Remove</button>
     </div>
     
     <script src="js/lib/require.js" data-main="js/app.js"></script>

@@ -1,17 +1,19 @@
 package gl8080.lifegame.logic;
 
 import static java.util.stream.IntStream.*;
+import static javax.persistence.CascadeType.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.eclipse.persistence.annotations.JoinFetch;
+import org.eclipse.persistence.annotations.JoinFetchType;
 
 import gl8080.lifegame.logic.exception.IllegalParameterException;
 
@@ -28,12 +30,9 @@ public class GameDefinition extends AbstractEntity {
     
     private int size;
     
-    @Embedded
-    @ElementCollection
-    @CollectionTable(
-        name="CELL_DEFINITION",
-        joinColumns=@JoinColumn(name="GAME_DEFINITION_ID")
-    )
+    @OneToMany(cascade={PERSIST, MERGE, REMOVE})
+    @JoinColumn(name="GAME_DEFINITION_ID")
+    @JoinFetch(JoinFetchType.INNER)
     private Map<Position, CellDefinition> cells;
     
     /**

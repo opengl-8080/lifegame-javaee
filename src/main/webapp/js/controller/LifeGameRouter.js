@@ -4,6 +4,7 @@ define(function(require) {
     var _ = require('underscore');
     var GameDefinition = require('GameDefinition');
     var RegisterGameDefinitionForm = require('RegisterGameDefinitionForm');
+    var EditGameDefinitionForm = require('EditGameDefinitionForm');
     
     var LifeGameRouter = Backbone.Router.extend({
         routes: {
@@ -29,8 +30,9 @@ define(function(require) {
             });
         },
         
-        editGameDefinition: function() {
-            
+        editGameDefinition: function(id) {
+            var gameDefinition = new GameDefinition({id: id});
+            var form = new EditGameDefinitionForm({model: gameDefinition});
         }
     });
     

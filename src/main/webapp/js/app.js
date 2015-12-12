@@ -5,6 +5,8 @@ requirejs.config({
         'GameDefinition': 'model/GameDefinition',
         
         'RegisterGameDefinitionForm': 'view/RegisterGameDefinitionForm',
+        'EditGameDefinitionForm': 'view/EditGameDefinitionForm',
+        'LifeGameBoard': 'view/LifeGameBoard',
         
         'jquery': 'lib/jquery-2.1.4.min',
         'underscore': 'lib/underscore.1.8.3-min',

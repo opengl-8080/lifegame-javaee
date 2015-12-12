@@ -6,4 +6,5 @@ public interface GameDefinitionRepository {
     
     void register(GameDefinition gameDefinition);
     Optional<GameDefinition> search(long id);
+    void remove(GameDefinition gameDefinition);
 }

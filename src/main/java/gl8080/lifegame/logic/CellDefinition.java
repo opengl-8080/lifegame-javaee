@@ -1,12 +1,15 @@
 package gl8080.lifegame.logic;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * セル定義を表すクラス。
  */
-@Embeddable
-public class CellDefinition {
+@Entity
+@Table(name="CELL_DEFINITION")
+public class CellDefinition extends AbstractEntity {
+    private static final long serialVersionUID = 1L;
     
     private boolean alive;
 

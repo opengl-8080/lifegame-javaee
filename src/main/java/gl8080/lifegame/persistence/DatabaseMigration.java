@@ -21,10 +21,11 @@ public class DatabaseMigration implements ServletContextListener {
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        logger.info("initialize database...");
+        logger.info("initialize database... {}", System.getProperty("user.dir"));
         
         Flyway flyway = new Flyway();
         flyway.setDataSource(this.ds);
+        flyway.clean();
         flyway.migrate();
         
         logger.info("initialize database done.");

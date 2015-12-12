@@ -20,6 +20,8 @@ import javax.ws.rs.core.UriBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import gl8080.lifegame.application.RegisterGameDefinitionService;
+import gl8080.lifegame.application.RemoveGameDefinitionService;
+import gl8080.lifegame.application.SaveGameDefinitionService;
 import gl8080.lifegame.application.SearchGameDefinitionService;
 import gl8080.lifegame.logic.GameDefinition;
 import gl8080.lifegame.util.Maps;
@@ -32,6 +34,10 @@ public class GameDefinitionResource {
     private RegisterGameDefinitionService registerService;
     @Inject
     private SearchGameDefinitionService searchService;
+    @Inject
+    private SaveGameDefinitionService saveService;
+    @Inject
+    private RemoveGameDefinitionService removeService;
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
@@ -60,13 +66,15 @@ public class GameDefinitionResource {
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response modify(@PathParam("id") long id, LifeGameDto dto) {
-        return null;
+    public Response save(LifeGameDto dto) {
+        this.saveService.save(dto);
+        return Response.ok().build();
     }
     
     @DELETE
     @Path("/{id}")
     public Response remove(@PathParam("id") long id) {
-        return null;
+        this.removeService.remove(id);
+        return Response.ok().build();
     }
 }

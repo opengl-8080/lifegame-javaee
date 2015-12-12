@@ -21,11 +21,11 @@ public class SearchGameDefinitionService {
     private GameDefinitionRepository repository;
     
     public LifeGameDto search(long id) {
-        logger.info("search (id={})", id);
+        logger.debug("search game definition : {}", id);
         GameDefinition gameDefinition = this.repository.search(id).orElseThrow(RuntimeException::new);
         
         LifeGameDto dto = new LifeGameDto();
-        
+        dto.setId(gameDefinition.getId());
         dto.setSize(gameDefinition.getSize());
         
         List<List<Boolean>> matrix = new ArrayList<>();
