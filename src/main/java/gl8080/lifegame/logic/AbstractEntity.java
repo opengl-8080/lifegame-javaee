@@ -41,7 +41,7 @@ import javax.persistence.MappedSuperclass;
  * @see <a href="http://www.onjava.com/pub/a/onjava/2006/09/13/dont-let-hibernate-steal-your-identity.html?page=1">Don't Let Hibernate Steal Your Identity | O'Reilly Media</a>
  */
 @MappedSuperclass
-public class AbstractEntity implements PersistenceObject, Serializable {
+public abstract class AbstractEntity implements PersistenceObject, Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
