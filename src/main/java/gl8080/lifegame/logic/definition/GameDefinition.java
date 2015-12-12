@@ -1,6 +1,5 @@
 package gl8080.lifegame.logic.definition;
 
-import static java.util.stream.IntStream.*;
 import static javax.persistence.CascadeType.*;
 
 import java.util.HashMap;
@@ -20,6 +19,7 @@ import gl8080.lifegame.logic.LifeGame;
 import gl8080.lifegame.logic.LifeGameCell;
 import gl8080.lifegame.logic.Position;
 import gl8080.lifegame.logic.exception.IllegalParameterException;
+import gl8080.lifegame.util.NestedLoop;
 
 /**
  * ゲーム定義を表すクラス。
@@ -55,13 +55,7 @@ public class GameDefinition extends AbstractEntity implements LifeGame {
         }
         
         this.size = size;
-        this.cells = new HashMap<>();
-        
-        range(0, size).forEach(i -> {
-            range(0, size).forEach(j -> {
-                this.cells.put(new Position(i, j), new CellDefinition());
-            });
-        });
+        this.cells = NestedLoop.collectMap(size, Position::new, CellDefinition::new);
     }
 
     @Override

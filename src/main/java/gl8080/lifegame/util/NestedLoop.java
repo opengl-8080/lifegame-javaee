@@ -1,7 +1,10 @@
 package gl8080.lifegame.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * 二重ループをラムダで実行できるようにするためのクラス。
@@ -9,10 +12,10 @@ import java.util.List;
 public class NestedLoop {
     
     /**
-     * 指定したサイズの二乗回分の二重ループを実行し、サプライヤが返した値を二重 {@code List} にまとめて返す。
+     * 二重ループを実行して、入れ子の {@code List} を生成する。
      * @param size サイズ
-     * @param supplier 外側のループで繰り返し呼び出される処理
-     * @return サプライヤが提供した値を持った二重の {@code List}
+     * @param supplier 入れ子の {@code List} に入れている各要素を供給する処理
+     * @return 入れ子の {@code List}
      */
     public static <T> List<List<T>> collectList(int size, BiIntSupplier<T> supplier) {
         List<List<T>> matrix = new ArrayList<>();
@@ -24,6 +27,40 @@ public class NestedLoop {
             }
             matrix.add(row);
         }
+        
         return matrix;
+    }
+    
+    /**
+     * 二重ループを実行して、 {@code Map} を生成する。
+     * @param size サイズ
+     * @param keySupplier キーを生成する処理
+     * @param valueSupplier バリューを生成する処理
+     * @return 生成された {@code Map}
+     */
+    public static <K, V> Map<K, V> collectMap(int size, BiIntSupplier<K> keySupplier, BiIntSupplier<V> valueSupplier) {
+        Map<K, V> map = new HashMap<>();
+        for (int i=0; i<size; i++) {
+            for (int j=0; j<size; j++) {
+                K key = keySupplier.get(i, j);
+                V value = valueSupplier.get(i, j);
+                map.put(key, value);
+            }
+        }
+        return map;
+    }
+    
+    /**
+     * 二重ループを実行して、 {@code Map} を生成する。
+     * <p>
+     * バリューの生成にはインデックスを利用しない場合はこのメソッドを使用してください。
+     * 
+     * @param size サイズ
+     * @param keySupplier キーを生成する処理
+     * @param valueSupplier バリューを生成する処理
+     * @return 生成された {@code Map}
+     */
+    public static <K, V> Map<K, V> collectMap(int size, BiIntSupplier<K> keySupplier, Supplier<V> valueSupplier) {
+        return collectMap(size, keySupplier, (i, j) -> valueSupplier.get());
     }
 }
