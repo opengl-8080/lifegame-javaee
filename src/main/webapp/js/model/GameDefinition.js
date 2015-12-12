@@ -1,24 +1,43 @@
-(function() {
+define(function(require) {
+    var Backbone = require('Backbone');
     var urlRoot = '/lifegame/api/game/definition';
     
-    lg.model.GameDefinition = Backbone.Model.extend({
+    var GameDefinition = Backbone.Model.extend({
         defaults: {
             size: 5
         },
-        register: function() {
-            var url = urlRoot + '?size=' + this.get('size');
-            return this.save(null, {url: url});
-        },
-        search: function() {
-            var _self = this;
-            var url = urlRoot + '/' + this.id;
+        
+        validate: function(attrs) {
+            if (!attrs.size) {
+                return 'サイズを指定してください';
+            }
             
-            return this.fetch({url: url})
-                .done(function() {
-                    _self.trigger('search');
-                });
+            var size = attrs.size - 0;
+            
+            if (size < 1) {
+                return 'サイズは 1 以上で指定してください';
+            } else if (100 < size) {
+                return 'サイズは 100 以下で指定してください';
+            }
+        },
+        
+        register: function() {
+            var self = this;
+            var url = urlRoot + '?size=' + self.get('size');
+            
+            return self.save(null, {url: url});
+        },
+        
+        search: function() {
+            var self = this;
+            var url = urlRoot + '/' + self.id;
+            
+            return self.fetch({url: url})
+                        .done(function() {
+                            self.trigger('search');
+                        });
         }
     });
     
-    
-})();
+    return GameDefinition;
+});

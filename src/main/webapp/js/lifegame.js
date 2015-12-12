@@ -1,4 +1,0 @@
-var lg = {
-    model: {},
-    view: {}
-};
