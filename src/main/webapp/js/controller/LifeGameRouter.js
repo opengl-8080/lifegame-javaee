@@ -12,7 +12,8 @@ define(function(require) {
         routes: {
             '': 'registerGameDefinition',
             'page/game/definition/:id': 'editGameDefinition',
-            'page/game/:id': 'runGame'
+            'page/game/:id': 'runGame',
+            '*notFound': 'notFound'
         },
         
         initialize: function() {
