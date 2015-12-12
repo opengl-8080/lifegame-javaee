@@ -6,9 +6,9 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 
 import gl8080.lifegame.logic.Game;
-import gl8080.lifegame.logic.GameDefinition;
-import gl8080.lifegame.logic.GameDefinitionRepository;
 import gl8080.lifegame.logic.GameRepository;
+import gl8080.lifegame.logic.definition.GameDefinition;
+import gl8080.lifegame.logic.definition.GameDefinitionRepository;
 
 @Stateless
 public class RegisterGameService {

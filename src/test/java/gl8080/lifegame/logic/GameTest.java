@@ -13,6 +13,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
+import gl8080.lifegame.logic.definition.GameDefinition;
 
 @RunWith(HierarchicalContextRunner.class)
 public class GameTest {

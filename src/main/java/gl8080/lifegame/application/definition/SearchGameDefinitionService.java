@@ -1,4 +1,4 @@
-package gl8080.lifegame.application;
+package gl8080.lifegame.application.definition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,9 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 
-import gl8080.lifegame.logic.GameDefinition;
-import gl8080.lifegame.logic.GameDefinitionRepository;
 import gl8080.lifegame.logic.Position;
+import gl8080.lifegame.logic.definition.GameDefinition;
+import gl8080.lifegame.logic.definition.GameDefinitionRepository;
 import gl8080.lifegame.web.resource.LifeGameDto;
 
 @Stateless

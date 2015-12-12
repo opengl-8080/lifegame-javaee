@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import gl8080.lifegame.logic.definition.CellDefinition;
+
 public class CellDefinitionTest {
     
     private CellDefinition cellDef;

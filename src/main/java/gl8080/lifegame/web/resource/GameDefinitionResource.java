@@ -19,11 +19,11 @@ import javax.ws.rs.core.UriBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import gl8080.lifegame.application.RegisterGameDefinitionService;
-import gl8080.lifegame.application.RemoveGameDefinitionService;
-import gl8080.lifegame.application.SaveGameDefinitionService;
-import gl8080.lifegame.application.SearchGameDefinitionService;
-import gl8080.lifegame.logic.GameDefinition;
+import gl8080.lifegame.application.definition.RegisterGameDefinitionService;
+import gl8080.lifegame.application.definition.RemoveGameDefinitionService;
+import gl8080.lifegame.application.definition.SaveGameDefinitionService;
+import gl8080.lifegame.application.definition.SearchGameDefinitionService;
+import gl8080.lifegame.logic.definition.GameDefinition;
 import gl8080.lifegame.util.Maps;
 
 @Path("/game/definition")

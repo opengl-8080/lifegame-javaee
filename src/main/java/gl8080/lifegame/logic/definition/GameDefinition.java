@@ -1,4 +1,4 @@
-package gl8080.lifegame.logic;
+package gl8080.lifegame.logic.definition;
 
 import static java.util.stream.IntStream.*;
 import static javax.persistence.CascadeType.*;
@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
 
+import gl8080.lifegame.logic.AbstractEntity;
+import gl8080.lifegame.logic.Position;
 import gl8080.lifegame.logic.exception.IllegalParameterException;
 
 /**

@@ -1,7 +1,9 @@
-package gl8080.lifegame.logic;
+package gl8080.lifegame.logic.definition;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import gl8080.lifegame.logic.AbstractEntity;
 
 /**
  * セル定義を表すクラス。

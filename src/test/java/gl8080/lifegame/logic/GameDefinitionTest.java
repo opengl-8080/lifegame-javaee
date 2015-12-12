@@ -12,6 +12,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import gl8080.lifegame.logic.definition.CellDefinition;
+import gl8080.lifegame.logic.definition.GameDefinition;
 import gl8080.lifegame.logic.exception.IllegalParameterException;
 
 public class GameDefinitionTest {

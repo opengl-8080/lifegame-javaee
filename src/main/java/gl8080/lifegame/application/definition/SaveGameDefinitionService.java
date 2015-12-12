@@ -1,11 +1,11 @@
-package gl8080.lifegame.application;
+package gl8080.lifegame.application.definition;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 
-import gl8080.lifegame.logic.GameDefinitionRepository;
+import gl8080.lifegame.logic.definition.GameDefinitionRepository;
 import gl8080.lifegame.web.resource.LifeGameDto;
 
 @Stateless

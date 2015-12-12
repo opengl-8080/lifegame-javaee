@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
 
+import gl8080.lifegame.logic.definition.GameDefinition;
+
 /**
  * ゲームを表すクラス。
  */

@@ -6,8 +6,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import gl8080.lifegame.logic.GameDefinition;
-import gl8080.lifegame.logic.GameDefinitionRepository;
+import gl8080.lifegame.logic.definition.GameDefinition;
+import gl8080.lifegame.logic.definition.GameDefinitionRepository;
 
 @ApplicationScoped
 public class JpaGameDefinitionRepository implements GameDefinitionRepository {
