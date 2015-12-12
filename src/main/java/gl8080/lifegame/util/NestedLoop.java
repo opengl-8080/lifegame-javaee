@@ -8,6 +8,8 @@ import java.util.function.Supplier;
 
 /**
  * 二重ループをラムダで実行できるようにするためのクラス。
+ * <p>
+ * このクラスが扱う二重ループは、縦と横が同じ大きさのループになります。
  */
 public class NestedLoop {
     
@@ -62,5 +64,19 @@ public class NestedLoop {
      */
     public static <K, V> Map<K, V> collectMap(int size, BiIntSupplier<K> keySupplier, Supplier<V> valueSupplier) {
         return collectMap(size, keySupplier, (i, j) -> valueSupplier.get());
+    }
+    
+    /**
+     * 入れ子の {@code List} を反復処理する。
+     * @param nestedList 入れ子の {@code List}
+     * @param iterator 反復処理（１つ目と２つ目の引数にはループインデックスが渡され、３つ目の引数に {@code List} の要素が渡されます）
+     */
+    public static <T> void each(List<List<T>> nestedList, TriConsumer<Integer, Integer, T> iterator) {
+        for (int i=0; i<nestedList.size(); i++) {
+            List<T> row = nestedList.get(i);
+            for (int j=0; j<row.size(); j++) {
+                iterator.accept(i, j, row.get(j));
+            }
+        }
     }
 }

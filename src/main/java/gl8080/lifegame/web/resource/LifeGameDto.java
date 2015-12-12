@@ -25,13 +25,21 @@ public class LifeGameDto {
         dto.id = lifeGame.getId();
         dto.size = lifeGame.getSize();
 
-        Map<Position, ? extends LifeGameCell> cells = lifeGame.getCells();
-        
         dto.cells = NestedLoop.collectList(lifeGame.getSize(), (i, j) -> {
-            return cells.get(new Position(i, j)).isAlive();
+            return lifeGame.getCells().get(new Position(i, j)).isAlive();
         });
         
         return dto;
+    }
+    
+    /**
+     * この DTO が持つ全てのセルに対して、指定した処理を適用します。
+     * @param iterator 反復処理
+     */
+    public void eachCell(BiConsumer<Position, Boolean> iterator) {
+        NestedLoop.each(this.cells, (i, j, status) -> {
+            iterator.accept(new Position(i, j), status);
+        });
     }
     
     public long getId() {
@@ -51,16 +59,6 @@ public class LifeGameDto {
     }
     public void setCells(List<List<Boolean>> cells) {
         this.cells = cells;
-    }
-    
-    public void eachCell(BiConsumer<Position, Boolean> iterator) {
-        for (int v=0; v<this.cells.size(); v++) {
-            List<Boolean> row = this.cells.get(v);
-            for (int h=0; h<row.size(); h++) {
-                Position p = new Position(v, h);
-                iterator.accept(p, row.get(h));
-            }
-        }
     }
     
     @Override
