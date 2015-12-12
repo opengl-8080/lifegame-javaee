@@ -2,6 +2,9 @@ package gl8080.lifegame.logic;
 
 import java.util.Map;
 
+/**
+ * １つのライフゲームを表すインターフェース。
+ */
 public interface LifeGame {
     
     /**

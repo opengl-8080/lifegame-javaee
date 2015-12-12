@@ -1,5 +1,8 @@
 package gl8080.lifegame.logic;
 
+/**
+ * ライフゲームのセルを表すインターフェース。
+ */
 public interface LifeGameCell {
 
     /**
