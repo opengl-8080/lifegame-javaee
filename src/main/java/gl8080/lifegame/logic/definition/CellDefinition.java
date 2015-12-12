@@ -4,13 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import gl8080.lifegame.logic.AbstractEntity;
+import gl8080.lifegame.logic.LifeGameCell;
 
 /**
  * セル定義を表すクラス。
  */
 @Entity
 @Table(name="CELL_DEFINITION")
-public class CellDefinition extends AbstractEntity {
+public class CellDefinition extends AbstractEntity implements LifeGameCell {
     private static final long serialVersionUID = 1L;
     
     private boolean alive;
@@ -23,10 +24,7 @@ public class CellDefinition extends AbstractEntity {
         this.alive = alive;
     }
     
-    /**
-     * このセル定義が生きているかどうかを確認する。
-     * @return 生きている場合は {@code true}
-     */
+    @Override
     public boolean isAlive() {
         return this.alive;
     }

@@ -45,7 +45,7 @@ public class GameTest {
             .live().dead().live()
             .dead().dead().dead()
         .build()
-        .getCellDefinitions()
+        .getCells()
         .forEach((p, c) -> {
             
             Cell cell = game.getCells().get(p);
@@ -57,7 +57,7 @@ public class GameTest {
     public void 指定したセル定義と同じ位置_同じ状態でセルが生成されること() {
         // verify
         gameDef
-            .getCellDefinitions()
+            .getCells()
             .forEach((position, cellDef) -> {
                 Cell cell = game.getCells().get(position);
                 

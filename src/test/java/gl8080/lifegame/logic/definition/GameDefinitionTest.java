@@ -12,9 +12,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import gl8080.lifegame.logic.LifeGameCell;
 import gl8080.lifegame.logic.Position;
-import gl8080.lifegame.logic.definition.CellDefinition;
-import gl8080.lifegame.logic.definition.GameDefinition;
 import gl8080.lifegame.logic.exception.IllegalParameterException;
 
 public class GameDefinitionTest {
@@ -66,19 +65,19 @@ public class GameDefinitionTest {
     @Test
     public void インスタンスを生成すると_指定したサイズを二乗した数の死んだセル定義が作成される() {
         // verify
-        Map<Position, CellDefinition> matrix = gameDef.getCellDefinitions();
+        Map<Position, ? extends LifeGameCell> matrix = gameDef.getCells();
         
-        Set<CellDefinition> uniqued = new HashSet<>(matrix.values());
+        Set<LifeGameCell> uniqued = new HashSet<>(matrix.values());
         
         assertThat(uniqued.size(), is(size * size));
-        assertThat(uniqued.stream().anyMatch(CellDefinition::isAlive), is(false));
+        assertThat(uniqued.stream().anyMatch(LifeGameCell::isAlive), is(false));
     }
     
     @Test
     public void 位置を指定して_セル定義の状態を変更できる() {
         // setup
         Position position = new Position(2, 3);
-        CellDefinition targetCell = gameDef.getCellDefinitions().get(position);
+        LifeGameCell targetCell = gameDef.getCells().get(position);
 
         assertThat(targetCell.isAlive(), is(false));
         
@@ -113,9 +112,9 @@ public class GameDefinitionTest {
         Position position = new Position(1, 2);
         
         // exercise
-        gameDef.getCellDefinitions().remove(position);
+        gameDef.getCells().remove(position);
         
         // verify
-        assertThat(gameDef.getCellDefinitions().containsKey(position), is(true));
+        assertThat(gameDef.getCells().containsKey(position), is(true));
     }
 }

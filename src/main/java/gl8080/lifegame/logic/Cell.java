@@ -19,7 +19,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="CELL")
-public class Cell extends AbstractEntity {
+public class Cell extends AbstractEntity implements LifeGameCell {
     private static final long serialVersionUID = 1L;
     
     private boolean alive;
@@ -54,10 +54,7 @@ public class Cell extends AbstractEntity {
         this.alive = alive;
     }
 
-    /**
-     * このセルが生きているかどうかを確認します。
-     * @return 生きている場合は {@code true}
-     */
+    @Override
     public boolean isAlive() {
         return this.alive;
     }

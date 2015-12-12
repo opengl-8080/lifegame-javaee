@@ -4,11 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import gl8080.lifegame.logic.Cell;
-import gl8080.lifegame.logic.Game;
+import gl8080.lifegame.logic.LifeGame;
+import gl8080.lifegame.logic.LifeGameCell;
 import gl8080.lifegame.logic.Position;
-import gl8080.lifegame.logic.definition.CellDefinition;
-import gl8080.lifegame.logic.definition.GameDefinition;
 import gl8080.lifegame.util.NestedLoop;
 
 public class LifeGameDto {
@@ -17,33 +15,19 @@ public class LifeGameDto {
     private List<List<Boolean>> cells;
 
     /**
-     * {@link GameDefinition} からインスタンスを生成する。
+     * {@link LifeGame} からインスタンスを生成する。
      * 
-     * @param gameDefinition {@link GameDefinition}
+     * @param lifeGame {@link LifeGame}
      * @return 生成された DTO
      */
-    public static LifeGameDto of(GameDefinition gameDefinition) {
+    public static LifeGameDto of(LifeGame lifeGame) {
         LifeGameDto dto = new LifeGameDto();
-        dto.id = gameDefinition.getId();
-        dto.size = gameDefinition.getSize();
+        dto.id = lifeGame.getId();
+        dto.size = lifeGame.getSize();
 
-        Map<Position, CellDefinition> cells = gameDefinition.getCellDefinitions();
+        Map<Position, ? extends LifeGameCell> cells = lifeGame.getCells();
         
-        dto.cells = NestedLoop.collectList(gameDefinition.getSize(), (i, j) -> {
-            return cells.get(new Position(i, j)).isAlive();
-        });
-        
-        return dto;
-    }
-
-    public static LifeGameDto of(Game game) {
-        LifeGameDto dto = new LifeGameDto();
-        dto.id = game.getId();
-        dto.size = game.getSize();
-
-        Map<Position, Cell> cells = game.getCells();
-        
-        dto.cells = NestedLoop.collectList(game.getSize(), (i, j) -> {
+        dto.cells = NestedLoop.collectList(lifeGame.getSize(), (i, j) -> {
             return cells.get(new Position(i, j)).isAlive();
         });
         

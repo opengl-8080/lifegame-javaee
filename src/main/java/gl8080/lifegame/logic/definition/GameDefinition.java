@@ -16,6 +16,8 @@ import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
 
 import gl8080.lifegame.logic.AbstractEntity;
+import gl8080.lifegame.logic.LifeGame;
+import gl8080.lifegame.logic.LifeGameCell;
 import gl8080.lifegame.logic.Position;
 import gl8080.lifegame.logic.exception.IllegalParameterException;
 
@@ -24,7 +26,7 @@ import gl8080.lifegame.logic.exception.IllegalParameterException;
  */
 @Entity
 @Table(name="GAME_DEFINITION")
-public class GameDefinition extends AbstractEntity {
+public class GameDefinition extends AbstractEntity implements LifeGame {
     private static final long serialVersionUID = 1L;
 
     /**ゲームのサイズに指定できる最大値*/
@@ -62,18 +64,11 @@ public class GameDefinition extends AbstractEntity {
         });
     }
 
-    /**
-     * このゲーム定義が持つ全てのセル定義を取得する。
-     * <p>
-     * ここで取得できるマップは、このオブジェクトが持つもののコピーです。<br>
-     * マップのエントリを変更することで、このオブジェクトに影響を与えることはありません。
-     * 
-     * @return このゲーム定義が持つ全てのセル定義
-     */
-    public Map<Position, CellDefinition> getCellDefinitions() {
+    @Override
+    public Map<Position, ? extends LifeGameCell> getCells() {
         return new HashMap<>(this.cells);
     }
-
+    
     /**
      * 指定した位置のセル定義の状態を変更します。
      * 

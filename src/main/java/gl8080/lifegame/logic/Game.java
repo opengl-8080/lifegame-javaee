@@ -23,7 +23,7 @@ import gl8080.lifegame.logic.definition.GameDefinition;
  */
 @Entity
 @Table(name="GAME")
-public class Game extends AbstractEntity {
+public class Game extends AbstractEntity implements LifeGame {
     private static final long serialVersionUID = 1L;
 
     private int size;
@@ -49,7 +49,7 @@ public class Game extends AbstractEntity {
     }
 
     private void initializeCells(GameDefinition gameDef) {
-        gameDef.getCellDefinitions().forEach((position, cellDef) -> {
+        gameDef.getCells().forEach((position, cellDef) -> {
             this.cells.put(position, cellDef.isAlive() ? Cell.alive() : Cell.dead());
         });
     }
@@ -67,14 +67,7 @@ public class Game extends AbstractEntity {
         });
     }
 
-    /**
-     * このゲームが持つ全てのセルを取得する。
-     * <p>
-     * このメソッドが返すマップは、このオブジェクトが持つマップのコピーです。<br>
-     * ここで取得したマップのエントリを削除するなどしても、このオブジェクトが持つオリジナルのマップには影響を与えません。
-     * 
-     * @return このゲームが持つ全てのセル
-     */
+    @Override
     public Map<Position, Cell> getCells() {
         return new HashMap<>(this.cells);
     }
@@ -87,10 +80,7 @@ public class Game extends AbstractEntity {
         this.cells.values().forEach(Cell::stepNextStatus);
     }
     
-    /**
-     * このゲームのサイズを取得します。
-     * @return このゲームのサイズ
-     */
+    @Override
     public int getSize() {
         return this.size;
     }

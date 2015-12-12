@@ -26,8 +26,8 @@ public class AbstractPersistenceObjectTest {
         // verify
         assertThat(o1.hashCode(), is(not(o2.hashCode())));
     }
-    
-    @Test
+
+    @Test @SuppressWarnings("deprecation")
     public void レシーバにだけIDが設定されている場合_別物と判定される() {
         // setup
         PersistenceObject o1 = new AbstractEntity(10L);
@@ -37,7 +37,7 @@ public class AbstractPersistenceObjectTest {
         assertThat(o1.equals(o2), is(false));
     }
     
-    @Test
+    @Test @SuppressWarnings("deprecation")
     public void 同じIDが設定されている場合_同じものと判定される() {
         // setup
         PersistenceObject o1 = new AbstractEntity(20L);
@@ -46,8 +46,8 @@ public class AbstractPersistenceObjectTest {
         // verify
         assertThat(o1.equals(o2), is(true));
     }
-    
-    @Test
+
+    @Test @SuppressWarnings("deprecation")
     public void 同じIDが設定されている場合_同じハッシュ値を返す() {
         // setup
         PersistenceObject o1 = new AbstractEntity(20L);
@@ -56,8 +56,8 @@ public class AbstractPersistenceObjectTest {
         // verify
         assertThat(o1.hashCode(), is(o2.hashCode()));
     }
-    
-    @Test
+
+    @Test @SuppressWarnings("deprecation")
     public void nullを渡した場合_別物と判定される() {
         // setup
         PersistenceObject o1 = new AbstractEntity(20L);
@@ -65,8 +65,8 @@ public class AbstractPersistenceObjectTest {
         // verify
         assertThat(o1.equals(null), is(false));
     }
-    
-    @Test
+
+    @Test @SuppressWarnings("deprecation")
     public void 別クラスのオブジェクトを渡した場合_別物と判定される() {
         // setup
         PersistenceObject o1 = new AbstractEntity(20L);
