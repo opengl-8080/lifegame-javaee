@@ -1,11 +1,9 @@
 package gl8080.lifegame.web.resource;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiConsumer;
 
 import gl8080.lifegame.logic.LifeGame;
-import gl8080.lifegame.logic.LifeGameCell;
 import gl8080.lifegame.logic.Position;
 import gl8080.lifegame.util.NestedLoop;
 
