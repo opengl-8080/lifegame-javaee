@@ -31,6 +31,6 @@ public class CellDefinition extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "CellDefinition [alive=" + alive + "]";
+        return "CellDefinition [id=" + this.getId() + ", alive=" + alive + "]";
     }
 }
