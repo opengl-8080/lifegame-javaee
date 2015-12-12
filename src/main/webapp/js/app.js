@@ -14,11 +14,9 @@ requirejs.config({
 
 define('main', function(require) {
     var LifeGameRouter = require('LifeGameRouter');
-
-    var router = new LifeGameRouter();
-    Backbone.history.start();
     
-    router.navigate('', {trigger: true});
+    new LifeGameRouter();
+    Backbone.history.start();
 });
 
 require(['main']);

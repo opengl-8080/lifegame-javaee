@@ -33,7 +33,7 @@ define(function(require) {
             
             request
                 .done(function(response) {
-                    self.$message.text('登録成功');
+                    self.trigger('registerGameDefinition', {id: response.id});
                 })
                 .fail(function(xhr) {
                     self.$message.text('登録失敗');
