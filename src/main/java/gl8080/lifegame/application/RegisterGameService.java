@@ -23,10 +23,7 @@ public class RegisterGameService {
     public Game register(long gameDefinitionId) {
         logger.info("save game (gameDefinitionId={})", gameDefinitionId);
         
-        GameDefinition gameDefinition =
-            this.gameDefinitionRepository
-                .search(gameDefinitionId)
-                .orElseThrow(RuntimeException::new);
+        GameDefinition gameDefinition = this.gameDefinitionRepository.search(gameDefinitionId);
         
         Game game = new Game(gameDefinition);
         this.gameRepository.register(game);

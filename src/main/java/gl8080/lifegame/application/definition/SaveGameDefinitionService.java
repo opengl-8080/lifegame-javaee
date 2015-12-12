@@ -5,6 +5,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 
+import gl8080.lifegame.logic.definition.GameDefinition;
 import gl8080.lifegame.logic.definition.GameDefinitionRepository;
 import gl8080.lifegame.web.resource.LifeGameDto;
 
@@ -20,10 +21,8 @@ public class SaveGameDefinitionService {
         logger.info("save game definition (id={})", dto.getId());
         logger.debug("dto = {}", dto);
         
-        this.gameDefinitionRepository
-            .search(dto.getId())
-            .ifPresent(gameDefinition -> {
-                dto.eachCell(gameDefinition::setStatus);
-            });
+        GameDefinition gameDefinition = this.gameDefinitionRepository.search(dto.getId());
+
+        dto.eachCell(gameDefinition::setStatus);
     }
 }

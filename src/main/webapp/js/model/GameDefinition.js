@@ -30,6 +30,7 @@ define(function(require) {
         },
         
         update: function() {
+            var self = this;
             var url = urlRoot + '/' + this.id;
             
             return this.sync('update', this, {url: url});

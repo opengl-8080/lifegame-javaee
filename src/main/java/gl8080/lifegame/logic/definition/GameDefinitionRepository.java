@@ -1,6 +1,6 @@
 package gl8080.lifegame.logic.definition;
 
-import java.util.Optional;
+import gl8080.lifegame.logic.exception.NotFoundEntityException;
 
 /**
  * ゲーム定義の永続化を行うリポジトリ。
@@ -17,8 +17,9 @@ public interface GameDefinitionRepository {
      * 指定した ID のゲーム定義を検索する。
      * @param id ID
      * @return ゲーム定義
+     * @throws NotFoundEntityException ID に紐づくゲーム定義が存在しない場合
      */
-    Optional<GameDefinition> search(long id);
+    GameDefinition search(long id);
     
     /**
      * 指定したゲーム定義を削除する。

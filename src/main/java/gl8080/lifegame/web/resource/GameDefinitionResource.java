@@ -68,13 +68,13 @@ public class GameDefinitionResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response save(LifeGameDto dto) {
         this.saveService.save(dto);
-        return Response.ok().build();
+        return Response.noContent().build();
     }
     
     @DELETE
     @Path("/{id}")
     public Response remove(@PathParam("id") long id) {
         this.removeService.remove(id);
-        return Response.ok().build();
+        return Response.noContent().build();
     }
 }

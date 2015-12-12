@@ -18,7 +18,7 @@ public class RemoveGameService {
     public void remove(long id) {
         logger.info("remove game (id={})", id);
         
-        Game game = this.gameRepository.search(id).orElseThrow(RuntimeException::new);
+        Game game = this.gameRepository.search(id);
         
         this.gameRepository.remove(game);
     }

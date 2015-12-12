@@ -19,7 +19,7 @@ public class SearchGameDefinitionService {
     public LifeGameDto search(long id) {
         logger.debug("search game definition (id={})", id);
         
-        GameDefinition gameDefinition = this.repository.search(id).orElseThrow(RuntimeException::new);
+        GameDefinition gameDefinition = this.repository.search(id);
         
         return LifeGameDto.of(gameDefinition);
     }

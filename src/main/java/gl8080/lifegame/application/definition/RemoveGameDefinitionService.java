@@ -5,6 +5,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 
+import gl8080.lifegame.logic.definition.GameDefinition;
 import gl8080.lifegame.logic.definition.GameDefinitionRepository;
 
 @Stateless
@@ -18,8 +19,8 @@ public class RemoveGameDefinitionService {
     public void remove(long id) {
         logger.info("remove game definition (id={})", id);
         
-        this.gameDefinitionRepository
-            .search(id)
-            .ifPresent(this.gameDefinitionRepository::remove);
+        GameDefinition gameDefinition = this.gameDefinitionRepository.search(id);
+        
+        this.gameDefinitionRepository.remove(gameDefinition);
     }
 }

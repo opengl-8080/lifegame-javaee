@@ -19,10 +19,7 @@ public class SearchGameService {
     public LifeGameDto search(long id) {
         logger.info("search game (id={})", id);
         
-        Game game =
-                this.repository
-                    .search(id)
-                    .orElseThrow(RuntimeException::new);
+        Game game = this.repository.search(id);
         
         return LifeGameDto.of(game);
     }

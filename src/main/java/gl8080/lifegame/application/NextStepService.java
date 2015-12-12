@@ -19,7 +19,7 @@ public class NextStepService {
     public LifeGameDto next(long id) {
         logger.info("next step game (id={})", id);
         
-        Game game = this.repository.search(id).orElseThrow(RuntimeException::new);
+        Game game = this.repository.search(id);
         game.nextStep();
 
         return LifeGameDto.of(game);
