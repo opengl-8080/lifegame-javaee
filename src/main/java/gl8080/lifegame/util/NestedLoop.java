@@ -16,7 +16,7 @@ public class NestedLoop {
     /**
      * 二重ループを実行して、入れ子の {@code List} を生成する。
      * @param size サイズ
-     * @param supplier 入れ子の {@code List} に入れている各要素を供給する処理
+     * @param supplier 入れ子の {@code List} に入れる各要素を供給する処理
      * @return 入れ子の {@code List}
      */
     public static <T> List<List<T>> collectList(int size, BiIntSupplier<T> supplier) {
