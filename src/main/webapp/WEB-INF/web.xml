@@ -14,5 +14,6 @@
       <value>;create=true</value>
     </property>
     <transactional>true</transactional>
+    <isolation-level>TRANSACTION_SERIALIZABLE</isolation-level>
   </data-source>
 </web-app>
