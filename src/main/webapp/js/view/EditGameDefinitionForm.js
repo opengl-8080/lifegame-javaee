@@ -14,7 +14,8 @@ define(function(require) {
         },
         
         initialize: function() {
-            this.$message = this.$('.message');
+            this.$errorMessage = this.$('.message .error');
+            this.$successMessage = this.$('.message .success');
             this.$startButton = this.$('.startButton');
             this.$updateButton = this.$('.updateButton');
             this.$removeButton = this.$('.removeButton');
@@ -23,7 +24,8 @@ define(function(require) {
         
         render: function(model) {
             this.model = model;
-            this.$message.text('');
+            this.$errorMessage.text('');
+            this.$successMessage.text('');
             this.$board.empty();
 
             this.model
@@ -72,7 +74,7 @@ define(function(require) {
                 .update()
                 .done(function(response) {
                     self.controlButton('update-success');
-                    self.$message.text('update successful.');
+                    self.$successMessage.text('更新が完了しました。');
                     self.model.set('version', response.version);
                 })
                 .fail(function(xhr) {
@@ -87,18 +89,18 @@ define(function(require) {
                 .destroy()
                 .done(function() {
                     self.controlButton('remove-success');
-                    self.$message.text('Game definition is removed.');
+                    self.$successMessage.text('ゲーム定義を削除しました。');
                     self.$board.empty();
                 });
         },
         
         onServerError: function(model, xhr, options) {
             if (xhr.status === 404) {
-                this.$message.text('Game definition is not found.');
+                this.$errorMessage.text('ゲーム定義が存在しません。');
             } else if (xhr.status === 409) {
-                this.$message.text('Game definition had been already updated.');
+                this.$errorMessage.text('同時更新されています。再検索してください。');
             } else {
-                this.$message.text('server error.');
+                this.$errorMessage.text('サーバーエラーが発生しました。');
             }
             
             this.controlButton('error');

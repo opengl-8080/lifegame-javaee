@@ -10,14 +10,14 @@ define(function(require) {
         
         initialize: function() {
             this.$size = this.$('.size');
-            this.$message = this.$('.message');
+            this.$errorMessage = this.$('.message .error');
             this.$registerButton = this.$('#registerGameDefinitionButton');
         },
         
         render: function(model) {
             this.model = model;
             
-            this.$message.text('');
+            this.$errorMessage.text('');
             this.$size.val(model.get('size'));
             this.$registerButton.attr('disabled', false);
 
@@ -25,13 +25,13 @@ define(function(require) {
         },
         
         onInvalidRegister: function() {
-            this.$message.text(this.model.validationError);
+            this.$errorMessage.text(this.model.validationError);
         },
         
         register: function() {
             var self = this;
             
-            self.$message.text('');
+            self.$errorMessage.text('');
             self.model.set('size', self.$size.val());
             
             var request = self.model.register();
@@ -47,7 +47,7 @@ define(function(require) {
                     self.trigger('register-game-definition', {id: response.id});
                 })
                 .fail(function(xhr) {
-                    self.$message.text('failed to register game definition.');
+                    self.$errorMessage.text('ゲーム定義の登録に失敗しました。');
                 })
                 .always(function() {
                     self.$registerButton.attr('disabled', false);

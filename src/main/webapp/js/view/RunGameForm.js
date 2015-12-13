@@ -15,12 +15,12 @@ define(function(require) {
         initialize: function() {
             this.$stopButton = this.$('.stopButton');
             this.$restartButton = this.$('.restartButton');
-            this.$message = this.$('.message');
+            this.$errorMessage = this.$('.message .error');
         },
         
         render: function(model) {
             this.model = model;
-            this.$message.text('');
+            this.$errorMessage.text('');
             this.$('.board').empty();
 
             this.controlButton('init');
@@ -69,9 +69,9 @@ define(function(require) {
         
         onServerError: function(model, xhr, options) {
             if (xhr.status === 404) {
-                this.$message.text('Game is not found.');
+                this.$errorMessage.text('ゲームが存在しません。');
             } else {
-                this.$message.text('server error.');
+                this.$errorMessage.text('サーバーエラーが発生しました。');
             }
             
             this.controlButton('error');

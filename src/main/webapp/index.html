@@ -1,38 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LIFE GAME</title>
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/lifegame.css" />
   </head>
   <body>
-    <div id="registerGameDefinitionForm" class="page registerGameDefinition invisible">
-      <h1>New Game</h1>
-      <div>
-        <div class="message"></div>
-        <label for="gameDefinitionSize">Size : </label>
-        <input type="number" id="gameDefinitionSize" class="size" min="1" max="100"/>
+    <div id="registerGameDefinitionForm" class="page registerGameDefinition container text-center">
+      <h1>新しいゲーム</h1>
+      <div class="form-group form-inline">
+      
+        <div class="message">
+          <span class="error text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+          <label for="gameDefinitionSize" class="control-label">サイズ : </label>
+          <input type="number" id="gameDefinitionSize" class="size form-control" min="1" max="100"/>
+        </div>
       </div>
-      <button id="registerGameDefinitionButton">Register</button>
+      <button id="registerGameDefinitionButton" class="btn btn-primary">登録</button>
     </div>
     
-    <div id="editGameDefinitionForm" class="page editGameDefinition invisible">
-      <h1>Edit Game Definition</h1>
-      <div class="message"></div>
+    <div id="editGameDefinitionForm" class="page editGameDefinition container text-center">
+      <h1>セルの編集</h1>
+      <button class="startButton btn btn-default margin-right">開始</button>
+      <button class="updateButton btn btn-primary margin-right">更新</button>
+      <button class="removeButton btn btn-danger btn-sm">削除</button>
+      
+      <div class="message">
+        <span class="success text-primary"></span>
+        <span class="error text-danger"></span>
+      </div>
+      
       <div class="board"></div>
-      <button class="startButton">Start</button>
-      <button class="updateButton">Update</button>
-      <button class="removeButton">Remove</button>
     </div>
     
-    <div id="runGameForm" class="page runGame invisible">
-      <h1>Running Life Game...</h1>
-      <div class="message"></div>
+    <div id="runGameForm" class="page runGame container text-center">
+      <h1>ライフゲーム</h1>
+      <button class="stopButton btn btn-warning margin-right">一時停止</button>
+      <button class="restartButton btn btn-primary" disabled>再開</button>
+      
+      <div class="message">
+        <span class="error text-danger"></span>
+      </div>
+      
       <div class="board"></div>
-      <button class="stopButton">Stop</button>
-      <button class="restartButton" disabled>Restart</button>
     </div>
     
-    <div id="notFound" class="page notFound invisible">
+    <div id="notFound" class="page notFound">
       <h1 class="message">404 Not Found</h1>
     </div>
     

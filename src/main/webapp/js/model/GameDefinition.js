@@ -11,15 +11,15 @@ define(function(require) {
         
         validate: function(attrs) {
             if (!attrs.size) {
-                return 'サイズを指定してください';
+                return 'サイズを指定してください。';
             }
             
             var size = attrs.size - 0;
             
             if (size < 1) {
-                return 'サイズは 1 以上で指定してください';
+                return 'サイズは 1 以上で指定してください。';
             } else if (100 < size) {
-                return 'サイズは 100 以下で指定してください';
+                return 'サイズは 100 以下で指定してください。';
             }
         },
         
