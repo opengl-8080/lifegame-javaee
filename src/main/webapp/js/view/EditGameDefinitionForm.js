@@ -44,18 +44,18 @@ define(function(require) {
             
             this.$board.append(this.board.el);
             
-            this.board.on('click-cell', this.onClickCell.bind(this));
+            this.board.on('draw-cell', this.onDrawCell.bind(this));
             
             this.board.render(this.model.get('cells'));
         },
         
-        onClickCell: function(position) {
+        onDrawCell: function(param) {
             this.controlButton('changed');
             var size = this.model.get('size');
             
-            if (position.h < size && position.v < size) {
+            if (param.h < size && param.v < size) {
                 var cells = this.model.get('cells');
-                cells[position.h][position.v] = !cells[position.h][position.v];
+                cells[param.h][param.v] = !param.ctrl;
                 this.board.render(cells);
             }
         },

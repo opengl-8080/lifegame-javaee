@@ -8,14 +8,33 @@ define(function(require) {
         tagName: 'canvas',
         
         initialize: function(options) {
+            var self = this;
             var size = options.size;
             var width = (size * WIDTH) + 'px';
             var height = width;
             
-            this.$el
+            var drag = false;
+            
+            self.$el
                 .attr('width', width)
                 .attr('height', height)
-                .on('click', this.onClickCell.bind(this));
+                .on('mousedown', function(e) {
+                    if (e.which === 1) {
+                        drag = true;
+                        self.onClickCell(e);
+                    }
+                })
+                .on('mouseup', function() {
+                    drag = false;
+                })
+                .on('mouseout', function() {
+                    drag = false;
+                })
+                .on('mousemove', function(e) {
+                    if (drag) {
+                        self.onClickCell(e);
+                    }
+                });
         },
         
         onClickCell: function(e) {
@@ -23,7 +42,7 @@ define(function(require) {
             var x = e.clientX - rect.left;
             var y = e.clientY - rect.top;
             
-            this.trigger('click-cell', {h: Math.floor(x/WIDTH), v: Math.floor(y/WIDTH)});
+            this.trigger('draw-cell', {h: Math.floor(x/WIDTH), v: Math.floor(y/WIDTH), ctrl: e.ctrlKey});
         },
         
         render: function(cells) {
