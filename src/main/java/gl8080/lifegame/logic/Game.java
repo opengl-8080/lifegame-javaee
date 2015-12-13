@@ -41,7 +41,6 @@ public class Game extends AbstractEntity implements LifeGame {
         this.size = gameDef.getSize();
         
         this.initializeCells(gameDef);
-        this.setupNeighborCells();
     }
 
     private void initializeCells(GameDefinition gameDef) {
@@ -50,7 +49,10 @@ public class Game extends AbstractEntity implements LifeGame {
         });
     }
 
-    private void setupNeighborCells() {
+    /**
+     * このゲームが持つ各セルに、隣接する周囲のセルをセットする。
+     */
+    public void initializeNeighborCells() {
         this.cells.forEach((position, cell) -> {
             List<Cell> neighbors =
                 position
@@ -72,6 +74,10 @@ public class Game extends AbstractEntity implements LifeGame {
      * このゲームを１ステップ進める。
      */
     public void nextStep() {
+        if (this.cells.values().stream().anyMatch(cell -> cell.getNeighbors().isEmpty())) {
+            throw new IllegalStateException("隣接セルが初期化されていません。");
+        }
+        
         this.cells.values().forEach(Cell::reserveNextStatus);
         this.cells.values().forEach(Cell::stepNextStatus);
     }

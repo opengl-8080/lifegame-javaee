@@ -2,6 +2,8 @@ define(function(require) {
     var Backbone = require('Backbone');
     var urlRoot = '/lifegame/api/game/definition';
     
+    var MAX_SIZE = 50;
+    
     var GameDefinition = Backbone.Model.extend({
         defaults: {
             size: 5
@@ -18,8 +20,8 @@ define(function(require) {
             
             if (size < 1) {
                 return 'サイズは 1 以上で指定してください。';
-            } else if (35 < size) {
-                return 'サイズは 35 以下で指定してください。';
+            } else if (MAX_SIZE < size) {
+                return 'サイズは ' + MAX_SIZE + ' 以下で指定してください。';
             }
         },
         

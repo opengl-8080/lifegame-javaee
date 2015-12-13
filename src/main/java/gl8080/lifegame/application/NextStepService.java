@@ -20,6 +20,7 @@ public class NextStepService {
         logger.info("next step game (id={})", id);
         
         Game game = this.repository.searchWithLock(id);
+        game.initializeNeighborCells();
         game.nextStep();
 
         return LifeGameDto.of(game);

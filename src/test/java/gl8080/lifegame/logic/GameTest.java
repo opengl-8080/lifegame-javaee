@@ -35,7 +35,94 @@ public class GameTest {
     }
     
     @Test
+    public void 周囲のセルのセット行わない場合_隣接するセルは空のまま() {
+        // verify
+        Map<Position, Cell> cells = game.getCells();
+        
+        Cell corner = cells.get(new Position(0, 0));
+        
+        List<Cell> neighbors = corner.getNeighbors();
+        
+        assertThat(neighbors, is(emptyIterable()));
+    }
+    
+    public class 各セルに周囲のセルをセットできることの確認 {
+        
+        @Before
+        public void exercise() {
+            game.initializeNeighborCells();
+        }
+        
+        @Test
+        public void 角のセルには_周囲３つのセルが設定されていること() {
+            // verify
+            Map<Position, Cell> cells = game.getCells();
+            
+            Cell corner = cells.get(new Position(0, 0));
+            
+            List<Cell> neighbors = corner.getNeighbors();
+            
+            assertThat(neighbors, containsInAnyOrder(
+                                    cells.get(new Position(0, 1)),
+                                    cells.get(new Position(1, 0)),
+                                    cells.get(new Position(1, 1))
+                                  ));
+        }
+        
+        @Test
+        public void 右真ん中のセルには_周囲５つのセルが設定されていること() {
+            // verify
+            Map<Position, Cell> cells = game.getCells();
+            
+            Cell corner = cells.get(new Position(1, 2));
+            
+            List<Cell> neighbors = corner.getNeighbors();
+            
+            assertThat(neighbors, containsInAnyOrder(
+                                    cells.get(new Position(0, 1)),
+                                    cells.get(new Position(0, 2)),
+                                    cells.get(new Position(1, 1)),
+                                    cells.get(new Position(2, 1)),
+                                    cells.get(new Position(2, 2))
+                                  ));
+        }
+        
+        @Test
+        public void 真ん中のセルには_周囲８つのセルが設定されていること() {
+            // verify
+            Map<Position, Cell> cells = game.getCells();
+            
+            Cell corner = cells.get(new Position(1, 1));
+            
+            List<Cell> neighbors = corner.getNeighbors();
+            
+            assertThat(neighbors, containsInAnyOrder(
+                                    cells.get(new Position(0, 0)),
+                                    cells.get(new Position(0, 1)),
+                                    cells.get(new Position(0, 2)),
+                                    cells.get(new Position(1, 0)),
+                                    cells.get(new Position(1, 2)),
+                                    cells.get(new Position(2, 0)),
+                                    cells.get(new Position(2, 1)),
+                                    cells.get(new Position(2, 2))
+                                  ));
+        }
+    }
+    
+    @Test
+    public void 隣接セルの初期化をする前に次のステップを読んだ場合_例外がスローされること() {
+        // verify
+        exception.expect(IllegalStateException.class);
+        
+        // exercise
+        game.nextStep();
+    }
+    
+    @Test
     public void ライフゲームのルールに従って次のステップに遷移できる() {
+        // setup
+        game.initializeNeighborCells();
+        
         // exercise
         game.nextStep();
         
@@ -63,61 +150,6 @@ public class GameTest {
                 
                 assertThat(position.toString(), cellDef.isAlive(), is(cell.isAlive()));
             });
-    }
-    
-    @Test
-    public void 角のセルには_周囲３つのセルが設定されていること() {
-        // verify
-        Map<Position, Cell> cells = game.getCells();
-        
-        Cell corner = cells.get(new Position(0, 0));
-        
-        List<Cell> neighbors = corner.getNeighbors();
-        
-        assertThat(neighbors, containsInAnyOrder(
-                                cells.get(new Position(0, 1)),
-                                cells.get(new Position(1, 0)),
-                                cells.get(new Position(1, 1))
-                              ));
-    }
-    
-    @Test
-    public void 右真ん中のセルには_周囲５つのセルが設定されていること() {
-        // verify
-        Map<Position, Cell> cells = game.getCells();
-        
-        Cell corner = cells.get(new Position(1, 2));
-        
-        List<Cell> neighbors = corner.getNeighbors();
-        
-        assertThat(neighbors, containsInAnyOrder(
-                                cells.get(new Position(0, 1)),
-                                cells.get(new Position(0, 2)),
-                                cells.get(new Position(1, 1)),
-                                cells.get(new Position(2, 1)),
-                                cells.get(new Position(2, 2))
-                              ));
-    }
-    
-    @Test
-    public void 真ん中のセルには_周囲８つのセルが設定されていること() {
-        // verify
-        Map<Position, Cell> cells = game.getCells();
-        
-        Cell corner = cells.get(new Position(1, 1));
-        
-        List<Cell> neighbors = corner.getNeighbors();
-        
-        assertThat(neighbors, containsInAnyOrder(
-                                cells.get(new Position(0, 0)),
-                                cells.get(new Position(0, 1)),
-                                cells.get(new Position(0, 2)),
-                                cells.get(new Position(1, 0)),
-                                cells.get(new Position(1, 2)),
-                                cells.get(new Position(2, 0)),
-                                cells.get(new Position(2, 1)),
-                                cells.get(new Position(2, 2))
-                              ));
     }
     
     @Test

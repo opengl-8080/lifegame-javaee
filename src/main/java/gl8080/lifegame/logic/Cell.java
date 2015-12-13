@@ -1,16 +1,11 @@
 package gl8080.lifegame.logic;
 
-import static javax.persistence.CascadeType.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,13 +20,7 @@ public class Cell extends AbstractEntity implements LifeGameCell {
     private boolean alive;
     @Transient
     private Boolean nextStatus;
-    
-    @ManyToMany(cascade={PERSIST, MERGE, REMOVE})
-    @JoinTable(
-        name="CELL_RELATION",
-        joinColumns=@JoinColumn(name="MAIN_CELL_ID"),
-        inverseJoinColumns=@JoinColumn(name="NEIGHBOR_CELL_ID")
-    )
+    @Transient
     private List<Cell> neighbors = Collections.emptyList();
 
     /**
