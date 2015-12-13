@@ -40,7 +40,7 @@ define(function(require) {
         
         start: function() {
             this.controlButton('running');
-            this.intervalId = setInterval(this.next.bind(this), 1000);
+            this.intervalId = setInterval(this.next.bind(this), 800);
         },
         
         next: function() {
