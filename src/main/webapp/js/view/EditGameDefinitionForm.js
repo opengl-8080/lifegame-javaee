@@ -62,7 +62,7 @@ define(function(require) {
         
         start: function() {
             var game = new Game();
-            
+            this.controlButton('lock');
             game.register(this.model.id)
                 .done(this.trigger.bind(this, 'start-game', game));
         },
