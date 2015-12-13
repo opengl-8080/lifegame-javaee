@@ -12,7 +12,7 @@ import gl8080.lifegame.web.resource.LifeGameDto;
 @Stateless
 public class SearchGameService {
     @Inject
-    private Logger logger;
+    private transient Logger logger;
     @Inject
     private GameRepository repository;
     

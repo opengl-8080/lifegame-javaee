@@ -13,7 +13,7 @@ import gl8080.lifegame.logic.definition.GameDefinitionRepository;
 @Stateless
 public class RegisterGameService {
     @Inject
-    private Logger logger;
+    private transient Logger logger;
     
     @Inject
     private GameDefinitionRepository gameDefinitionRepository;

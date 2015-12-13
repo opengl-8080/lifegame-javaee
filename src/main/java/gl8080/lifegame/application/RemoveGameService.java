@@ -11,7 +11,7 @@ import gl8080.lifegame.logic.GameRepository;
 @Stateless
 public class RemoveGameService {
     @Inject
-    private Logger logger;
+    private transient Logger logger;
     @Inject
     private GameRepository gameRepository;
     
