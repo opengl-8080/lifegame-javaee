@@ -15,11 +15,12 @@ define(function(require) {
         initialize: function() {
             this.$stopButton = this.$('.stopButton');
             this.$restartButton = this.$('.restartButton');
+            this.$message = this.$('.message').empty('');
             
             this.controlButton('init');
             
             this.model
-                .on('error', _.bind(this.controlButton, this, 'error'))
+                .on('error', this.onServerError.bind(this))
                 .fetch()
                 .done(this.onLoadModel.bind(this));
         },
@@ -56,6 +57,14 @@ define(function(require) {
         remove: function() {
             this.stop();
             this.model.destroy();
+        },
+        
+        onServerError: function(model, xhr, options) {
+            if (xhr.status === 404) {
+                this.$message.text('Game is not found.');
+            }
+            
+            this.controlButton('error');
         },
         
         controlButton: function(status) {
