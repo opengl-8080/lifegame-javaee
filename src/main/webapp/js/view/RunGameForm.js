@@ -4,6 +4,12 @@ define(function(require) {
     var _ = require('underscore');
     var Game = require('Game');
     
+    var SPEED_MAP = {
+        'slow': 1000,
+        'normal': 700,
+        'speedy': 400
+    };
+    
     var RunGameForm = Backbone.View.extend({
         el: '#runGameForm',
         
@@ -16,12 +22,14 @@ define(function(require) {
             this.$stopButton = this.$('.stopButton');
             this.$restartButton = this.$('.restartButton');
             this.$errorMessage = this.$('.message .error');
+            this.$speed = this.$('.speed');
         },
         
         render: function(model) {
             this.model = model;
             this.$errorMessage.text('');
             this.$('.board').empty();
+            this.$speed.val('normal');
 
             this.controlButton('init');
             
@@ -41,7 +49,7 @@ define(function(require) {
         
         start: function() {
             this.controlButton('running');
-            this.intervalId = setInterval(this.next.bind(this), 800);
+            this.intervalId = setInterval(this.next.bind(this), SPEED_MAP[this.$speed.val()]);
         },
         
         next: function() {
@@ -82,14 +90,17 @@ define(function(require) {
             if (status === 'running') {
                 this.$stopButton.attr('disabled', false);
                 this.$restartButton.attr('disabled', true);
+                this.$speed.attr('disabled', true);
                 
             } else if (status === 'stop') {
                 this.$stopButton.attr('disabled', true);
                 this.$restartButton.attr('disabled', false);
+                this.$speed.attr('disabled', false);
                 
             } else if (status === 'error' || status === 'init') {
                 this.$stopButton.attr('disabled', true);
                 this.$restartButton.attr('disabled', true);
+                this.$speed.attr('disabled', true);
             }
         }
     });
