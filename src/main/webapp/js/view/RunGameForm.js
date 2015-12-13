@@ -34,6 +34,7 @@ define(function(require) {
         onLoadModel: function() {
             this.board = new LifeGameBoard({size: this.model.get('size')});
             this.$('.board').append(this.board.el);
+            this.refresh();
 
             this.start();
         },
