@@ -29,7 +29,6 @@ define(function(require) {
         },
         
         removeRunningGameIfExists: function(route) {
-            console.log('route=' + route);
             if (route !== 'runGame') {
                 _.each(this.runGameForms, function(runGameForm) {
                     runGameForm.remove();
