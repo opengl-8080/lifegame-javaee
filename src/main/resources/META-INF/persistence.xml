@@ -7,10 +7,10 @@
 
   <persistence-unit name="LifeGameUnit">
     <jta-data-source>java:app/lifegameDS</jta-data-source>
-    <properties>
-      <property name="eclipselink.logging.level" value="FINE" />
-      <property name="eclipselink.logging.parameters" value="true"/>
-    </properties>
+<!--     <properties> -->
+<!--       <property name="eclipselink.logging.level" value="FINE" /> -->
+<!--       <property name="eclipselink.logging.parameters" value="true"/> -->
+<!--     </properties> -->
   </persistence-unit>
 
 </persistence>
