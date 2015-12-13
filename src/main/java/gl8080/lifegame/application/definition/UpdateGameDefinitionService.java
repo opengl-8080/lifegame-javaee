@@ -17,12 +17,15 @@ public class UpdateGameDefinitionService {
     @Inject
     private GameDefinitionRepository gameDefinitionRepository;
     
-    public void update(LifeGameDto dto) {
+    public GameDefinition update(LifeGameDto dto) {
         logger.info("update game definition (id={})", dto.getId());
         logger.debug("dto = {}", dto);
         
-        GameDefinition gameDefinition = this.gameDefinitionRepository.search(dto.getId());
+        GameDefinition gameDefinition = this.gameDefinitionRepository.searchWithLock(dto.getId());
 
         dto.eachCell(gameDefinition::setStatus);
+        gameDefinition.setVersion(dto.getVersion());
+        
+        return gameDefinition;
     }
 }

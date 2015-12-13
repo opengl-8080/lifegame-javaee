@@ -67,4 +67,9 @@ public class GameDefinitionBuilder {
             }
         }
     }
+
+    public GameDefinitionBuilder version(long version) {
+        this.gameDef.setVersion(version);
+        return this;
+    }
 }

@@ -26,6 +26,7 @@ public class LifeGameDtoTest {
         lifeGame =
                 lifeGame(3)
                     .id(10L)
+                    .version(59L)
                     .live().live().dead()
                     .dead().live().dead()
                     .dead().dead().live()
@@ -72,6 +73,15 @@ public class LifeGameDtoTest {
         
         assertThat(i, greaterThan(0));
         assertThat(j, greaterThan(0));
+    }
+    
+    @Test
+    public void バージョンが連携されていること() throws Exception {
+        // exercise
+        LifeGameDto dto = LifeGameDto.of(lifeGame);
+        
+        // verify
+        assertThat(dto.getVersion(), is(lifeGame.getVersion()));
     }
     
     

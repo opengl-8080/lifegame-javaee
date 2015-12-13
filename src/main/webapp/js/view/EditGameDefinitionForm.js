@@ -70,9 +70,13 @@ define(function(require) {
             
             this.model
                 .update()
-                .done(function() {
+                .done(function(response) {
                     self.controlButton('update-success');
                     self.$message.text('update successful.');
+                    self.model.set('version', response.version);
+                })
+                .fail(function(xhr) {
+                    self.onServerError(self, xhr);
                 });
         },
         
@@ -91,6 +95,8 @@ define(function(require) {
         onServerError: function(model, xhr, options) {
             if (xhr.status === 404) {
                 this.$message.text('Game definition is not found.');
+            } else if (xhr.status === 409) {
+                this.$message.text('Game definition had been already updated.');
             } else {
                 this.$message.text('server error.');
             }

@@ -21,8 +21,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import gl8080.lifegame.application.definition.RegisterGameDefinitionService;
 import gl8080.lifegame.application.definition.RemoveGameDefinitionService;
-import gl8080.lifegame.application.definition.UpdateGameDefinitionService;
 import gl8080.lifegame.application.definition.SearchGameDefinitionService;
+import gl8080.lifegame.application.definition.UpdateGameDefinitionService;
 import gl8080.lifegame.logic.definition.GameDefinition;
 import gl8080.lifegame.util.Maps;
 
@@ -67,8 +67,11 @@ public class GameDefinitionResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(LifeGameDto dto) {
-        this.saveService.update(dto);
-        return Response.noContent().build();
+        GameDefinition gameDefinition = this.saveService.update(dto);
+        
+        return Response.ok()
+                        .entity(Maps.map("version", gameDefinition.getVersion()))
+                        .build();
     }
     
     @DELETE

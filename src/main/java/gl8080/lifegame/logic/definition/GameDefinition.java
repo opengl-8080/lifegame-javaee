@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
@@ -33,6 +34,8 @@ public class GameDefinition extends AbstractEntity implements LifeGame {
     public static final int MAX_SIZE = 100;
     
     private int size;
+    @Version
+    private Long version;
     
     @OneToMany(cascade={PERSIST, MERGE, REMOVE})
     @JoinColumn(name="GAME_DEFINITION_ID")
@@ -91,8 +94,17 @@ public class GameDefinition extends AbstractEntity implements LifeGame {
     }
     
     @Override
+    public Long getVersion() {
+        return this.version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
+    @Override
     public String toString() {
-        return "GameDefinition [id=" + this.getId() + ", size=" + size + ", cells=" + cells + "]";
+        return "GameDefinition [size=" + size + ", version=" + version + ", cells=" + cells + ", getId()=" + getId() + "]";
     }
 
     /**

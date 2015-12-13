@@ -11,6 +11,7 @@ public class LifeGameDto {
     private long id;
     private int size;
     private List<List<Boolean>> cells;
+    private Long version;
 
     /**
      * {@link LifeGame} からインスタンスを生成する。
@@ -22,6 +23,7 @@ public class LifeGameDto {
         LifeGameDto dto = new LifeGameDto();
         dto.id = lifeGame.getId();
         dto.size = lifeGame.getSize();
+        dto.version = lifeGame.getVersion();
 
         dto.cells = NestedLoop.collectList(lifeGame.getSize(), (i, j) -> {
             return lifeGame.getCells().get(new Position(i, j)).isAlive();
@@ -58,7 +60,13 @@ public class LifeGameDto {
     public void setCells(List<List<Boolean>> cells) {
         this.cells = cells;
     }
-    
+    public Long getVersion() {
+        return version;
+    }
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
     @Override
     public String toString() {
         return "LifeGameDto [id=" + id + ", size=" + size + ", cells=" + cells + "]";
