@@ -1,7 +1,7 @@
 define(function(require) {
     var Backbone = require('Backbone');
     var LifeGameBoard = require('LifeGameBoard');
-    var $ = require('jquery');
+    var _ = require('underscore');
     var Game = require('Game');
     
     var RunGameForm = Backbone.View.extend({
@@ -13,7 +13,13 @@ define(function(require) {
         },
         
         initialize: function() {
+            this.$stopButton = this.$('.stopButton');
+            this.$restartButton = this.$('.restartButton');
+            
+            this.controlButton('init');
+            
             this.model
+                .on('error', _.bind(this.controlButton, this, 'error'))
                 .fetch()
                 .done(this.onLoadModel.bind(this));
         },
@@ -27,6 +33,7 @@ define(function(require) {
         },
         
         start: function() {
+            this.controlButton('running');
             this.intervalId = setInterval(this.next.bind(this), 1000);
         },
         
@@ -41,6 +48,7 @@ define(function(require) {
         },
         
         stop: function() {
+            this.controlButton('stop');
             clearInterval(this.intervalId);
             delete this.intervalId;
         },
@@ -48,6 +56,21 @@ define(function(require) {
         remove: function() {
             this.stop();
             this.model.destroy();
+        },
+        
+        controlButton: function(status) {
+            if (status === 'running') {
+                this.$stopButton.attr('disabled', false);
+                this.$restartButton.attr('disabled', true);
+                
+            } else if (status === 'stop') {
+                this.$stopButton.attr('disabled', true);
+                this.$restartButton.attr('disabled', false);
+                
+            } else if (status === 'error' || status === 'init') {
+                this.$stopButton.attr('disabled', true);
+                this.$restartButton.attr('disabled', true);
+            }
         }
     });
     
