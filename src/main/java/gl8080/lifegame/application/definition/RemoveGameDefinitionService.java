@@ -19,7 +19,7 @@ public class RemoveGameDefinitionService {
     public void remove(long id) {
         logger.info("remove game definition (id={})", id);
         
-        GameDefinition gameDefinition = this.gameDefinitionRepository.search(id);
+        GameDefinition gameDefinition = this.gameDefinitionRepository.searchWithLock(id);
         
         this.gameDefinitionRepository.remove(gameDefinition);
     }

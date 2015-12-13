@@ -18,7 +18,7 @@ public class RemoveGameService {
     public void remove(long id) {
         logger.info("remove game (id={})", id);
         
-        Game game = this.gameRepository.search(id);
+        Game game = this.gameRepository.searchWithLock(id);
         
         this.gameRepository.remove(game);
     }

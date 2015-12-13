@@ -2,6 +2,7 @@ package gl8080.lifegame.persistence;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 
 import gl8080.lifegame.logic.Game;
@@ -21,7 +22,16 @@ public class JpaGameRepository implements GameRepository {
 
     @Override
     public Game search(long id) {
-        Game game = this.em.find(Game.class, id);
+        return this.searchWithLock(id, LockModeType.NONE);
+    }
+
+    @Override
+    public Game searchWithLock(long id) {
+        return this.searchWithLock(id, LockModeType.PESSIMISTIC_WRITE);
+    }
+    
+    public Game searchWithLock(long id, LockModeType type) {
+        Game game = this.em.find(Game.class, id, type);
         
         if (game == null) {
             throw new NotFoundEntityException(id);

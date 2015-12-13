@@ -22,7 +22,7 @@ public interface GameDefinitionRepository {
     GameDefinition search(long id);
     
     /**
-     * 指定した ID のゲーム定義を検索する。
+     * 指定した ID のゲーム定義を検索し、排他ロックする。
      * @param id ID
      * @return ゲーム定義
      * @throws NotFoundEntityException ID に紐づくゲーム定義が存在しない場合

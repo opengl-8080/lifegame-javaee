@@ -22,6 +22,14 @@ public interface GameRepository {
     Game search(long id);
 
     /**
+     * 指定した ID のゲームを検索し、排他ロックする。
+     * @param id ID
+     * @return 検索結果
+     * @throws NotFoundEntityException 指定した ID に紐づくゲームが存在しない場合
+     */
+    Game searchWithLock(long id);
+
+    /**
      * 指定したゲームを削除する。
      * @param game 削除するゲーム。
      */

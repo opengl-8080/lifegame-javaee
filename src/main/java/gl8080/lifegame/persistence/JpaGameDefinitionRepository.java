@@ -22,18 +22,16 @@ public class JpaGameDefinitionRepository implements GameDefinitionRepository {
 
     @Override
     public GameDefinition search(long id) {
-        GameDefinition gameDefinition = this.em.find(GameDefinition.class, id);
-        
-        if (gameDefinition == null) {
-            throw new NotFoundEntityException(id);
-        }
-        
-        return gameDefinition;
+        return this.searchWithLock(id, LockModeType.NONE);
     }
 
     @Override
     public GameDefinition searchWithLock(long id) {
-        GameDefinition gameDefinition = this.em.find(GameDefinition.class, id, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+        return this.searchWithLock(id, LockModeType.PESSIMISTIC_FORCE_INCREMENT);
+    }
+    
+    private GameDefinition searchWithLock(long id, LockModeType lock) {
+        GameDefinition gameDefinition = this.em.find(GameDefinition.class, id, lock);
         
         if (gameDefinition == null) {
             throw new NotFoundEntityException(id);
