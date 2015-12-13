@@ -12,9 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import org.eclipse.persistence.annotations.JoinFetch;
-import org.eclipse.persistence.annotations.JoinFetchType;
-
 import gl8080.lifegame.logic.AbstractEntity;
 import gl8080.lifegame.logic.LifeGame;
 import gl8080.lifegame.logic.LifeGameCell;
@@ -39,7 +36,6 @@ public class GameDefinition extends AbstractEntity implements LifeGame {
     
     @OneToMany(cascade={PERSIST, MERGE, REMOVE})
     @JoinColumn(name="GAME_DEFINITION_ID")
-    @JoinFetch(JoinFetchType.INNER)
     private Map<Position, CellDefinition> cells;
     
     /**
