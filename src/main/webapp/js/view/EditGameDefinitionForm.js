@@ -9,14 +9,14 @@ define(function(require) {
         
         events: {
             'click .startButton': 'start',
-            'click .saveButton': 'save',
+            'click .updateButton': 'update',
             'click .removeButton': 'remove'
         },
         
         initialize: function() {
             this.$message = this.$('.message');
             this.$startButton = this.$('.startButton');
-            this.$saveButton = this.$('.saveButton');
+            this.$updateButton = this.$('.updateButton');
             this.$removeButton = this.$('.removeButton');
             this.$board = this.$('.board');
         },
@@ -65,7 +65,7 @@ define(function(require) {
                 .done(this.trigger.bind(this, 'start-game', game));
         },
         
-        save: function() {
+        update: function() {
             var self = this;
             
             this.model
@@ -99,15 +99,15 @@ define(function(require) {
         controlButton: function(status) {
             if (status === 'error' || status === 'lock' || status === 'remove-success') {
                 this.$startButton.attr('disabled', true);
-                this.$saveButton.attr('disabled', true);
+                this.$updateButton.attr('disabled', true);
                 this.$removeButton.attr('disabled', true);
             } else if (status === 'update-success' || status === 'fetch-success') {
                 this.$startButton.attr('disabled', false);
-                this.$saveButton.attr('disabled', true);
+                this.$updateButton.attr('disabled', true);
                 this.$removeButton.attr('disabled', false);
             } else if (status === 'changed') {
                 this.$startButton.attr('disabled', true);
-                this.$saveButton.attr('disabled', false);
+                this.$updateButton.attr('disabled', false);
                 this.$removeButton.attr('disabled', false);
             }
         }

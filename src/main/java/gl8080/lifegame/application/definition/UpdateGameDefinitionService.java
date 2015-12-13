@@ -10,15 +10,15 @@ import gl8080.lifegame.logic.definition.GameDefinitionRepository;
 import gl8080.lifegame.web.resource.LifeGameDto;
 
 @Stateless
-public class SaveGameDefinitionService {
+public class UpdateGameDefinitionService {
     @Inject
     private Logger logger;
     
     @Inject
     private GameDefinitionRepository gameDefinitionRepository;
     
-    public void save(LifeGameDto dto) {
-        logger.info("save game definition (id={})", dto.getId());
+    public void update(LifeGameDto dto) {
+        logger.info("update game definition (id={})", dto.getId());
         logger.debug("dto = {}", dto);
         
         GameDefinition gameDefinition = this.gameDefinitionRepository.search(dto.getId());
