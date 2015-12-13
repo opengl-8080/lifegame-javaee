@@ -18,8 +18,8 @@ define(function(require) {
             
             if (size < 1) {
                 return 'サイズは 1 以上で指定してください。';
-            } else if (100 < size) {
-                return 'サイズは 100 以下で指定してください。';
+            } else if (35 < size) {
+                return 'サイズは 35 以下で指定してください。';
             }
         },
         

@@ -28,7 +28,7 @@ public class GameDefinition extends AbstractEntity implements LifeGame {
     private static final long serialVersionUID = 1L;
 
     /**ゲームのサイズに指定できる最大値*/
-    public static final int MAX_SIZE = 100;
+    public static final int MAX_SIZE = 35;
     
     private int size;
     @Version
