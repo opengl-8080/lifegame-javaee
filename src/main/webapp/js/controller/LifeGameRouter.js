@@ -17,6 +17,7 @@ define(function(require) {
         },
         
         initialize: function() {
+            this.runGameForms = [];
             $(window).on("beforeunload", this.removeRunningGameIfExists.bind(this));
             this.on('route', this.onMovePage.bind(this));
         },
@@ -28,9 +29,12 @@ define(function(require) {
         },
         
         removeRunningGameIfExists: function(route) {
-            if (route !== 'runGame' && this.runGameForm) {
-                this.runGameForm.remove();
-                delete this.runGameForm;
+            console.log('route=' + route);
+            if (route !== 'runGame') {
+                _.each(this.runGameForms, function(runGameForm) {
+                    runGameForm.remove();
+                });
+                this.runGameForms = [];
             }
         },
         
@@ -57,7 +61,7 @@ define(function(require) {
         
         runGame: function(id) {
             var game = new Game({id: id});
-            this.runGameForm = new RunGameForm({model: game});
+            this.runGameForms.push(new RunGameForm({model: game}));
         }
     });
     
