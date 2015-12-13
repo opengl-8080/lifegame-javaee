@@ -70,6 +70,8 @@ define(function(require) {
         onServerError: function(model, xhr, options) {
             if (xhr.status === 404) {
                 this.$message.text('Game is not found.');
+            } else {
+                this.$message.text('server error.');
             }
             
             this.controlButton('error');
