@@ -15,8 +15,14 @@ define(function(require) {
         initialize: function() {
             this.$stopButton = this.$('.stopButton');
             this.$restartButton = this.$('.restartButton');
-            this.$message = this.$('.message').empty('');
-            
+            this.$message = this.$('.message');
+        },
+        
+        render: function(model) {
+            this.model = model;
+            this.$message.text('');
+            this.$('.board').empty();
+
             this.controlButton('init');
             
             this.model
@@ -27,9 +33,8 @@ define(function(require) {
         
         onLoadModel: function() {
             this.board = new LifeGameBoard({size: this.model.get('size')});
-            
-            this.$('.board').empty().append(this.board.el);
-            
+            this.$('.board').append(this.board.el);
+
             this.start();
         },
         
@@ -55,8 +60,11 @@ define(function(require) {
         },
         
         remove: function() {
-            this.stop();
-            this.model.destroy();
+            if (this.model) {
+                this.stop();
+                this.model.destroy();
+                delete this.model;
+            }
         },
         
         onServerError: function(model, xhr, options) {

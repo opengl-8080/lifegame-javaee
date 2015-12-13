@@ -8,8 +8,9 @@ define(function(require) {
         tagName: 'canvas',
         
         initialize: function(options) {
-            var width = (options.size * WIDTH) + 'px';
-            var height = (options.size * WIDTH) + 'px';
+            var size = options.size;
+            var width = (size * WIDTH) + 'px';
+            var height = width;
             
             this.$el
                 .attr('width', width)

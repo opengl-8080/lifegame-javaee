@@ -14,21 +14,30 @@ define(function(require) {
         },
         
         initialize: function() {
-            this.$message = this.$('.message').empty();
+            this.$message = this.$('.message');
             this.$startButton = this.$('.startButton');
             this.$saveButton = this.$('.saveButton');
             this.$removeButton = this.$('.removeButton');
-            this.$board = this.$('.board').empty();
-            
+            this.$board = this.$('.board');
+        },
+        
+        render: function(model) {
+            this.model = model;
+            this.$message.text('');
+            this.$board.empty();
+
             this.model
                 .on('request', _.bind(this.controlButton, this, 'lock'))
                 .on('error', this.onServerError.bind(this))
                 .fetch()
                 .done(this.onLoadModel.bind(this));
+            
+            return this;
         },
         
         onLoadModel: function() {
             this.controlButton('fetch-success');
+            
             this.board = new LifeGameBoard({size: this.model.get('size')});
             
             this.$board.append(this.board.el);

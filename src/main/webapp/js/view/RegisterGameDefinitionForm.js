@@ -9,15 +9,23 @@ define(function(require) {
         },
         
         initialize: function() {
-            var self = this;
+            this.$size = this.$('.size');
+            this.$message = this.$('.message');
+            this.$registerButton = this.$('#registerGameDefinitionButton');
+        },
+        
+        render: function(model) {
+            this.model = model;
             
-            self.$size = self.$('.size').val(self.model.get('size'));
-            self.$message = self.$('.message').empty();
-            self.$registerButton = self.$('#registerGameDefinitionButton').attr('disabled', false);
-            
-            self.model.on('invalid', function() {
-                self.$message.text(self.model.validationError);
-            });
+            this.$message.text('');
+            this.$size.val(model.get('size'));
+            this.$registerButton.attr('disabled', false);
+
+            this.model.on('invalid', this.onInvalidRegister.bind(this));
+        },
+        
+        onInvalidRegister: function() {
+            this.$message.text(this.model.validationError);
         },
         
         register: function() {
@@ -44,10 +52,6 @@ define(function(require) {
                 .always(function() {
                     self.$registerButton.attr('disabled', false);
                 });
-        },
-        
-        onInvalidRegister: function() {
-            this.$message.text(this.model.validationError);
         }
     });
     

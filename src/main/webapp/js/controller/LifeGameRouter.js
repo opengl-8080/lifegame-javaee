@@ -17,7 +17,10 @@ define(function(require) {
         },
         
         initialize: function() {
-            this.runGameForms = [];
+            this.initializeEditGameDefinitionForm();
+            this.initializeRegisterGameDefinitionform();
+            this.initializeRunGameForm();
+            
             $(window).on("beforeunload", this.removeRunningGameIfExists.bind(this));
             this.on('route', this.onMovePage.bind(this));
         },
@@ -30,37 +33,44 @@ define(function(require) {
         
         removeRunningGameIfExists: function(route) {
             if (route !== 'runGame') {
-                _.each(this.runGameForms, function(runGameForm) {
-                    runGameForm.remove();
-                });
-                this.runGameForms = [];
+                this.runGameForm.remove();
             }
         },
         
-        registerGameDefinition: function() {
+        initializeEditGameDefinitionForm: function() {
             var self = this;
-            var gameDefinition = new GameDefinition();
-            
-            var form = new RegisterGameDefinitionForm({model: gameDefinition});
-            
-            form.on('register-game-definition', function(param) {
-                self.navigate('page/game/definition/' + param.id, true);
-            });
-        },
-        
-        editGameDefinition: function(id) {
-            var gameDefinition = new GameDefinition({id: id});
-            var form = new EditGameDefinitionForm({model: gameDefinition});
-            var self = this;
-            
-            form.on('start-game', function(game) {
+
+            self.editGameDefinitionForm = new EditGameDefinitionForm();
+
+            self.editGameDefinitionForm.on('start-game', function(game) {
                 self.navigate('page/game/' + game.id, true);
             });
         },
         
+        initializeRegisterGameDefinitionform: function() {
+            var self = this;
+            
+            this.registerGameDefinitionForm = new RegisterGameDefinitionForm();
+
+            this.registerGameDefinitionForm.on('register-game-definition', function(param) {
+                self.navigate('page/game/definition/' + param.id, true);
+            });
+        },
+        
+        initializeRunGameForm: function() {
+            this.runGameForm = new RunGameForm();
+        },
+        
+        registerGameDefinition: function() {
+            this.registerGameDefinitionForm.render(new GameDefinition());
+        },
+        
+        editGameDefinition: function(id) {
+            this.editGameDefinitionForm.render(new GameDefinition({id: id}));
+        },
+        
         runGame: function(id) {
-            var game = new Game({id: id});
-            this.runGameForms.push(new RunGameForm({model: game}));
+            this.runGameForm.render(new Game({id: id}));
         }
     });
     
