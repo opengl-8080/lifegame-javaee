@@ -17,8 +17,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import gl8080.lifegame.application.definition.RegisterGameDefinitionService;
 import gl8080.lifegame.application.definition.RemoveGameDefinitionService;
 import gl8080.lifegame.application.definition.SearchGameDefinitionService;
@@ -41,7 +39,7 @@ public class GameDefinitionResource {
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response register(@QueryParam("size") int size) throws JsonProcessingException {
+    public Response register(@QueryParam("size") int size) {
         GameDefinition gameDefinition = this.registerService.register(size);
         long id = gameDefinition.getId();
         
