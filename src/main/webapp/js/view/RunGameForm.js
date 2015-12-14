@@ -43,19 +43,28 @@ define(function(require) {
             this.board = new LifeGameBoard({size: this.model.get('size')});
             this.$('.board').append(this.board.el);
             this.refresh();
-
             this.start();
         },
         
         start: function() {
             this.controlButton('running');
-            this.intervalId = setInterval(this.next.bind(this), SPEED_MAP[this.$speed.val()]);
+            this.running = true;
+            this.next();
         },
         
         next: function() {
-            this.model
+            var self = this;
+            
+            self.model
                 .next()
-                .done(this.refresh.bind(this));
+                .done(function() {
+                    self.refresh();
+                    
+                    if (self.running) {
+                        setTimeout(self.next.bind(self), SPEED_MAP[self.$speed.val()]);
+                    }
+                })
+                .fail(self.onServerError.bind(self));
         },
         
         refresh: function() {
@@ -64,8 +73,7 @@ define(function(require) {
         
         stop: function() {
             this.controlButton('stop');
-            clearInterval(this.intervalId);
-            delete this.intervalId;
+            this.running = false;
         },
         
         remove: function() {
