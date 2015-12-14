@@ -8,7 +8,7 @@
   <data-source>
     <name>java:app/lifegameDS</name>
     <class-name>org.apache.derby.jdbc.EmbeddedDataSource</class-name>
-    <database-name>F:\tmp\payara\db\lifegame_db</database-name>
+    <database-name>lifegame_db</database-name>
     <property>
       <name>connectionAttributes</name>
       <value>;create=true</value>
