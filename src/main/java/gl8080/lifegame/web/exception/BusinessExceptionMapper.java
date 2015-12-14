@@ -1,4 +1,4 @@
-package gl8080.lifegame.persistence;
+package gl8080.lifegame.web.exception;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
