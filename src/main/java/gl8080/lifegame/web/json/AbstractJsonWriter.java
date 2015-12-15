@@ -18,7 +18,7 @@ public abstract class AbstractJsonWriter<T> implements MessageBodyWriter<T> {
     
     @Override
     public boolean isWriteable(Class<?> clazz, Type type, Annotation[] annotations, MediaType mediaType) {
-        return mediaType.equals(MediaType.APPLICATION_JSON_TYPE);
+        return mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE);
     }
 
     @Override

@@ -24,9 +24,7 @@ public class JsonReader implements MessageBodyReader<LifeGameDto> {
     
     @Override
     public boolean isReadable(Class<?> clazz, Type type, Annotation[] annotations, MediaType mediaType) {
-        // firefox の場合、 application/json;charset=UTF-8 という形で渡ってくるので、単純な equals 比較ではダメ
-        return MediaType.APPLICATION_JSON_TYPE.getType().equals(mediaType.getType())
-                && MediaType.APPLICATION_JSON_TYPE.getSubtype().equals(mediaType.getSubtype());
+        return mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE);
     }
 
     @Override
