@@ -55,16 +55,19 @@ define(function(require) {
         next: function() {
             var self = this;
             
-            self.model
-                .next()
-                .done(function() {
-                    self.refresh();
-                    
-                    if (self.running) {
-                        setTimeout(self.next.bind(self), SPEED_MAP[self.$speed.val()]);
-                    }
-                })
-                .fail(self.onServerError.bind(self));
+            if (!self.running) {
+                return;
+            }
+            
+            setTimeout(function() {
+                self.model
+                    .next()
+                    .done(function() {
+                        self.refresh();
+                        self.next();
+                    })
+                    .fail(self.onServerError.bind(self));
+            }, SPEED_MAP[self.$speed.val()]);
         },
         
         refresh: function() {
