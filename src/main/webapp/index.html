@@ -17,19 +17,31 @@
           <span class="error text-danger"></span>
         </div>
         
-        <div class="form-group">
-          <label for="gameDefinitionSize" class="control-label">サイズ : </label>
-          <input type="number" id="gameDefinitionSize" class="size form-control" min="1" max="35"/>
-        </div>
+        <ul class="list-inline">
+          <li>
+            <label for="gameDefinitionSize" class="control-label">サイズ : </label>
+          </li>
+          <li>
+            <input type="number" id="gameDefinitionSize" class="size form-control" min="1" max="35"/>
+          </li>
+        </ul>
       </div>
       <button id="registerGameDefinitionButton" class="btn btn-primary">登録</button>
     </div>
     
     <div id="editGameDefinitionForm" class="page editGameDefinition container text-center">
       <h1>セルの編集</h1>
-      <button class="startButton btn btn-default margin-right">開始</button>
-      <button class="updateButton btn btn-primary margin-right">更新</button>
-      <button class="removeButton btn btn-danger btn-sm">削除</button>
+      <ul class="list-inline">
+        <li>
+          <button class="startButton btn btn-default">開始</button>
+        </li>
+        <li>
+          <button class="updateButton btn btn-primary">更新</button>
+        </li>
+        <li>
+          <button class="removeButton btn btn-danger btn-sm">削除</button>
+        </li>
+      </ul>
       
       <div class="message">
         <span class="success text-primary"></span>
@@ -45,15 +57,21 @@
     
     <div id="runGameForm" class="page runGame container text-center">
       <h1>ライフゲーム</h1>
-      <div class="form-inline form-group">
-        <button class="stopButton btn btn-warning margin-right">一時停止</button>
-        <button class="restartButton btn btn-primary margin-right" disabled>再開</button>
-        <select class="speed form-control">
-          <option value="slow">ゆっくり</option>
-          <option value="normal">ふつう</option>
-          <option value="speedy">はやい</option>
-        </select>
-      </div>
+      <ul class="list-inline">
+        <li>
+          <button class="stopButton btn btn-warning">一時停止</button>
+        </li>
+        <li>
+          <button class="restartButton btn btn-primary" disabled>再開</button>
+        </li>
+        <li>
+          <select class="speed form-control">
+            <option value="slow">ゆっくり</option>
+            <option value="normal">ふつう</option>
+            <option value="speedy">はやい</option>
+          </select>
+        </li>
+      </ul>
       
       <div class="message">
         <span class="error text-danger"></span>
