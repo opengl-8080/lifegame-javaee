@@ -58,7 +58,8 @@ public class GameDefinitionResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public LifeGameDto search(@PathParam("id") long id) {
-        return this.searchService.search(id);
+        GameDefinition gameDefinition = this.searchService.search(id);
+        return LifeGameDto.of(gameDefinition);
     }
     
     @PUT

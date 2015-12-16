@@ -55,14 +55,16 @@ public class GameResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public LifeGameDto search(@PathParam("id") long id) {
-        return this.searchService.search(id);
+        Game game = this.searchService.search(id);
+        return LifeGameDto.of(game);
     }
     
     @POST
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public LifeGameDto next(@PathParam("id") long id) {
-        return this.nextService.next(id);
+        Game game = this.nextService.next(id);
+        return LifeGameDto.of(game);
     }
     
     @DELETE

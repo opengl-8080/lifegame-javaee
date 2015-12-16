@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 
 import gl8080.lifegame.logic.Game;
 import gl8080.lifegame.logic.GameRepository;
-import gl8080.lifegame.web.resource.LifeGameDto;
 
 @Stateless
 public class NextStepService {
@@ -16,13 +15,13 @@ public class NextStepService {
     @Inject
     private GameRepository repository;
     
-    public LifeGameDto next(long id) {
+    public Game next(long id) {
         logger.info("next step game (id={})", id);
         
         Game game = this.repository.searchWithLock(id);
         game.initializeNeighborCells();
         game.nextStep();
 
-        return LifeGameDto.of(game);
+        return game;
     }
 }
