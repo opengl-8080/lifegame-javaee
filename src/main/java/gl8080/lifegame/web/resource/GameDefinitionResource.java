@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 import gl8080.lifegame.application.definition.RegisterGameDefinitionService;
@@ -66,6 +67,10 @@ public class GameDefinitionResource {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(LifeGameDto dto) {
+        if (dto == null) {
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+        
         GameDefinition gameDefinition = this.saveService.update(dto);
         
         return Response.ok()
