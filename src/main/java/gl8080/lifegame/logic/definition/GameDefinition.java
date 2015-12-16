@@ -1,16 +1,8 @@
 package gl8080.lifegame.logic.definition;
 
-import static javax.persistence.CascadeType.*;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Version;
 
 import gl8080.lifegame.logic.AbstractEntity;
 import gl8080.lifegame.logic.LifeGame;
@@ -22,8 +14,6 @@ import gl8080.lifegame.util.NestedLoop;
 /**
  * ゲーム定義を表すクラス。
  */
-@Entity
-@Table(name="GAME_DEFINITION")
 public class GameDefinition extends AbstractEntity implements LifeGame {
     private static final long serialVersionUID = 1L;
 
@@ -31,12 +21,8 @@ public class GameDefinition extends AbstractEntity implements LifeGame {
     public static final int MAX_SIZE = 50;
     
     private int size;
-    @Version
-    private Long version;
-    
-    @OneToMany(cascade={PERSIST, MERGE, REMOVE})
-    @JoinColumn(name="GAME_DEFINITION_ID")
     private Map<Position, CellDefinition> cells;
+    private Long version;
     
     /**
      * ゲーム定義を新規に作成する。

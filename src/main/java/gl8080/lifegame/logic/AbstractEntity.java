@@ -2,11 +2,6 @@ package gl8080.lifegame.logic;
 
 import java.io.Serializable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-
 /**
  * エンティティの基底クラス。
  * <p>
@@ -40,11 +35,9 @@ import javax.persistence.MappedSuperclass;
  * @see <a href="http://stackoverflow.com/questions/5031614/the-jpa-hashcode-equals-dilemma">The JPA hashCode() / equals() dilemma | stackoverflow</a>
  * @see <a href="http://www.onjava.com/pub/a/onjava/2006/09/13/dont-let-hibernate-steal-your-identity.html?page=1">Don't Let Hibernate Steal Your Identity | O'Reilly Media</a>
  */
-@MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     
     protected AbstractEntity() {}

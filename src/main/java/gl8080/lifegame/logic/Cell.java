@@ -5,22 +5,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
 /**
  * セルを表すクラス。
  */
-@Entity
-@Table(name="CELL")
 public class Cell extends AbstractEntity implements LifeGameCell {
     private static final long serialVersionUID = 1L;
     
     private boolean alive;
-    @Transient
     private Boolean nextStatus;
-    @Transient
     private List<Cell> neighbors = Collections.emptyList();
 
     /**

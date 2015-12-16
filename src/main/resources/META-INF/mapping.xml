@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+    version="1.0">
+    <description>LifeGame Entity Mapping</description>
+    
+    <mapped-superclass class="gl8080.lifegame.logic.AbstractEntity">
+      <attributes>
+        <id name="id">
+          <generated-value strategy="IDENTITY" />
+        </id>
+      </attributes>
+    </mapped-superclass>
+   
+    <entity class="gl8080.lifegame.logic.Game">
+      <attributes>
+        <one-to-many name="cells">
+          <join-column name="GAME_ID" />
+          <cascade>
+            <cascade-persist />
+            <cascade-merge />
+            <cascade-remove />
+          </cascade>
+        </one-to-many>
+      </attributes>
+    </entity>
+   
+    <entity class="gl8080.lifegame.logic.Cell">
+      <attributes>
+        <transient name="nextStatus"/>
+        <transient name="neighbors" />
+      </attributes>
+    </entity>
+    
+    <entity class="gl8080.lifegame.logic.definition.GameDefinition">
+      <table name="GAME_DEFINITION" />
+      
+      <attributes>
+        <version name="version" />
+        
+        <one-to-many name="cells">
+          <join-column name="GAME_DEFINITION_ID" />
+          <cascade>
+            <cascade-persist />
+            <cascade-merge />
+            <cascade-remove />
+          </cascade>
+        </one-to-many>
+      </attributes>
+   </entity>
+   
+   <entity class="gl8080.lifegame.logic.definition.CellDefinition">
+     <table name="CELL_DEFINITION" />
+   </entity>
+   
+   <embeddable class="gl8080.lifegame.logic.Position">
+     <attributes>
+       <basic name="vertical">
+         <column name="VERTICAL_POSITION" />
+       </basic>
+       <basic name="horizontal">
+         <column name="HORIZONTAL_POSITION" />
+       </basic>
+     </attributes>
+   </embeddable>
+</entity-mappings>

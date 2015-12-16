@@ -1,32 +1,21 @@
 package gl8080.lifegame.logic;
 
-import static javax.persistence.CascadeType.*;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import gl8080.lifegame.logic.definition.GameDefinition;
 
 /**
  * ゲームを表すクラス。
  */
-@Entity
-@Table(name="GAME")
 public class Game extends AbstractEntity implements LifeGame {
     private static final long serialVersionUID = 1L;
 
     private int size;
     
-    @OneToMany(cascade={PERSIST, MERGE, REMOVE})
-    @JoinColumn(name="GAME_ID")
     private Map<Position, Cell> cells;
 
     /**

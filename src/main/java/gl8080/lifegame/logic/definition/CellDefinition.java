@@ -1,16 +1,11 @@
 package gl8080.lifegame.logic.definition;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import gl8080.lifegame.logic.AbstractEntity;
 import gl8080.lifegame.logic.LifeGameCell;
 
 /**
  * セル定義を表すクラス。
  */
-@Entity
-@Table(name="CELL_DEFINITION")
 public class CellDefinition extends AbstractEntity implements LifeGameCell {
     private static final long serialVersionUID = 1L;
     
